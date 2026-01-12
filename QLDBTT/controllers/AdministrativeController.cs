@@ -32,13 +32,13 @@ namespace Disease_Disaster.Controllers
 		}
 
 
-		
+
 		public DataTable GetLevels()
 		{
 			return _dbHelper.ExecuteQuery("SELECT Id, Ten FROM HanhChinh ORDER BY Id");
 		}
 
-		
+
 		public DataTable Search(int? provinceId, int? levelId, string keyword)
 		{
 			string query = @"SELECT dv.Id, dv.Ten, hc.Ten as Cap, p.Ten as TrucThuoc, ct.Ten as ChiCucThuY 
@@ -58,7 +58,7 @@ namespace Disease_Disaster.Controllers
 				query += " AND dv.HanhChinhId = @Level ";
 			}
 
-			
+
 			if (provinceId.HasValue)
 			{
 				// Nếu tìm XÃ (Cấp 3) trong TỈNH -> Lấy các xã có cha (Huyện) thuộc Tỉnh
@@ -109,20 +109,43 @@ namespace Disease_Disaster.Controllers
 		}
 
 		// Thêm mới
+		// AdministrativeController.cs
+
 		public bool Add(string ten, int cap, int? trucThuocId)
 		{
-			string query = "INSERT INTO DonVi (Ten, HanhChinhId, TrucThuocId) VALUES (@Ten, @Cap, @Par)";
-			return _dbHelper.ExecuteNonQuery(query, new[] {
-				 new SqlParameter("@Ten", ten),
-				 new SqlParameter("@Cap", cap),
-				 new SqlParameter("@Par", trucThuocId.HasValue ? (object)trucThuocId.Value : DBNull.Value)
-			 }) > 0;
+			try
+			{
+				// 1. Tìm ChiCucThuyId của đơn vị cha (Inheritance logic)
+				object chiCucId = DBNull.Value;
+				if (trucThuocId.HasValue)
+				{
+					string findQuery = "SELECT ChiCucThuyId FROM DonVi WHERE Id = @ParId";
+					var result = _dbHelper.ExecuteScalar(findQuery, new[] {
+				new SqlParameter("@ParId", trucThuocId.Value)
+			});
+					if (result != null && result != DBNull.Value)
+					{
+						chiCucId = result;
+					}
+				}
+
+				// 2. Thêm mới đơn vị kèm theo ChiCucThuyId đã tìm được
+				// Bổ sung thêm cột ChiCucThuyId vào câu lệnh INSERT
+				string query = @"INSERT INTO DonVi (Ten, HanhChinhId, TrucThuocId, ChiCucThuyId) 
+                         VALUES (@Ten, @Cap, @Par, @ChiCuc)";
+
+				return _dbHelper.ExecuteNonQuery(query, new[] {
+			 new SqlParameter("@Ten", ten),
+			 new SqlParameter("@Cap", cap),
+			 new SqlParameter("@Par", trucThuocId.HasValue ? (object)trucThuocId.Value : DBNull.Value),
+			 new SqlParameter("@ChiCuc", chiCucId) // Gán giá trị kế thừa tại đây
+        }) > 0;
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine("Lỗi AddDonVi: " + ex.Message);
+				return false;
+			}
 		}
-
-		// Alias cho AddDonVi nếu code cũ dùng tên này
-		public bool AddDonVi(string ten, int cap, int? trucThuocId) => Add(ten, cap, trucThuocId);
-
-		// Alias cho DeleteDonVi nếu code cũ dùng tên này
-		public bool DeleteDonVi(int id) => Delete(id);
 	}
 }

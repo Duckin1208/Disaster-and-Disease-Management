@@ -11,42 +11,44 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 
-		<Border Grid.Row="0" BorderBrush="#DDDDDD" BorderThickness="1" Padding="10" Background="#F9F9F9" Margin="0,0,0,10">
-			<StackPanel Orientation="Horizontal">
-				<Label Content="Tỉnh/Thành:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-				<ComboBox x:Name="cbTinh" Width="150" Height="30" 
-                          DisplayMemberPath="Ten" SelectedValuePath="Id"
-                          SelectionChanged="cbTinh_SelectionChanged"/>
+		<Border Grid.Row="0" BorderBrush="#DDDDDD" BorderThickness="1" Padding="15" Background="#F9F9F9" Margin="0,0,0,10">
+			<StackPanel Orientation="Vertical">
+				<StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+					<Label Content="Tỉnh/Thành:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+					<ComboBox x:Name="cbTinh" Width="150" Height="30" DisplayMemberPath="Ten" SelectedValuePath="Id" SelectionChanged="cbTinh_SelectionChanged"/>
 
-				<Label Content="Cấp:" VerticalAlignment="Center" Margin="10,0,5,0"/>
-				<ComboBox x:Name="cbLevel" Width="100" Height="30" SelectedIndex="0"
-                          SelectionChanged="cbLevel_SelectionChanged">
-					<ComboBoxItem Content="Huyện"/>
-					<ComboBoxItem Content="Xã"/>
-				</ComboBox>
+					<Label Content="Cấp:" VerticalAlignment="Center" Margin="10,0,5,0"/>
+					<ComboBox x:Name="cbLevel" Width="100" Height="30" SelectedIndex="0" SelectionChanged="cbLevel_SelectionChanged">
+						<ComboBoxItem Content="Huyện"/>
+						<ComboBoxItem Content="Xã"/>
+					</ComboBox>
 
-				<TextBox x:Name="txtSearch" Width="180" Height="30" Margin="10,0,0,0" 
-                         VerticalContentAlignment="Center" ToolTip="Nhập tên đơn vị..."/>
+					<TextBox x:Name="txtSearch" Width="180" Height="30" Margin="10,0,0,0" VerticalContentAlignment="Center"/>
+					<Button x:Name="btnSearch" Content="🔍 Tìm" Width="80" Height="30" Margin="5,0,0,0" Click="btnSearch_Click" Background="#3498DB" Foreground="White" BorderThickness="0"/>
 
-				<Button x:Name="btnSearch" Content="Tìm" Width="70" Height="30" Margin="5,0,0,0" 
-                        Click="btnSearch_Click" Background="#3498DB" Foreground="White"/>
+					<Button x:Name="btnAdd" Content="➕ Thêm Huyện" Width="110" Height="30" Margin="5,0,0,0" Click="btnAdd_Click" Background="#2980B9" Foreground="White" FontWeight="Bold" BorderThickness="0"/>
 
-				<Button x:Name="btnAdd" Content="Thêm" Width="70" Height="30" Margin="5,0,0,0" 
-                        Click="btnAdd_Click" Background="#2ECC71" Foreground="White"/>
+					<Button x:Name="btnDelete" Content="🗑️ Xóa" Width="80" Height="30" Margin="5,0,0,0" Click="btnDelete_Click" Background="#E74C3C" Foreground="White" BorderThickness="0"/>
+				</StackPanel>
 
-				<Button x:Name="btnDelete" Content="Xóa" Width="70" Height="30" Margin="5,0,0,0" 
-                        Click="btnDelete_Click" Background="#E74C3C" Foreground="White"/>
+				<Border BorderBrush="#BDC3C7" BorderThickness="0,1,0,0" Padding="0,15,0,0">
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="➕ THÊM NHANH XÃ:" VerticalAlignment="Center" FontWeight="Bold" Foreground="#2980B9" Margin="0,0,15,0"/>
+						<TextBox x:Name="txtQuickAddName" Width="250" Height="32" VerticalContentAlignment="Center" Padding="10,0" BorderBrush="#27AE60"/>
+						<Button x:Name="btnQuickAdd" Content="Lưu Xã Mới" Width="120" Height="32" Margin="10,0,0,0" Click="btnQuickAdd_Click" Background="#27AE60" Foreground="White" FontWeight="Bold" BorderThickness="0"/>
+						<TextBlock Text="(Chọn huyện trên bảng trước khi nhấn Lưu)" VerticalAlignment="Center" FontStyle="Italic" Foreground="#7F8C8D" Margin="15,0,0,0"/>
+					</StackPanel>
+				</Border>
 			</StackPanel>
 		</Border>
 
-		<DataGrid x:Name="dgDonVi" Grid.Row="1" AutoGenerateColumns="False" 
-                  IsReadOnly="True" SelectionMode="Single" BorderBrush="#CCCCCC" BorderThickness="1">
+		<DataGrid x:Name="dgDonVi" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" RowHeight="35" HeadersVisibility="Column">
 			<DataGrid.Columns>
-				<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
-				<DataGridTextColumn Header="Tên Đơn Vị" Binding="{Binding Ten}" Width="*"/>
-				<DataGridTextColumn Header="Cấp" Binding="{Binding CapHanhChinh}" Width="120"/>
+				<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60"/>
+				<DataGridTextColumn Header="Tên Đơn Vị" Binding="{Binding Ten}" Width="*" FontWeight="SemiBold"/>
+				<DataGridTextColumn Header="Cấp" Binding="{Binding Cap}" Width="120"/>
 				<DataGridTextColumn Header="Trực Thuộc" Binding="{Binding TrucThuoc}" Width="150"/>
-				<DataGridTextColumn Header="Chi Cục Thú Y" Binding="{Binding TenChiCuc}" Width="200"/>
+				<DataGridTextColumn Header="Chi Cục Thú Y" Binding="{Binding ChiCucThuy}" Width="200"/>
 			</DataGrid.Columns>
 		</DataGrid>
 	</Grid>

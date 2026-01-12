@@ -80,6 +80,10 @@
     <Compile Include="models\FacilityModels.cs" />
     <Compile Include="models\ReportModels.cs" />
     <Compile Include="models\SystemModels.cs" />
+    <Page Include="Views\AddDiseaseWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\UserEditDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -105,10 +109,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\VeterinaryFacilityView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\AddDiseaseWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -152,6 +152,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\AddDiseaseWindow.xaml.cs">
+      <DependentUpon>AddDiseaseWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserEditDialog.xaml.cs">
       <DependentUpon>UserEditDialog.xaml</DependentUpon>
     </Compile>
@@ -172,9 +175,6 @@
     </Compile>
     <Compile Include="Views\VeterinaryFacilityView.xaml.cs">
       <DependentUpon>VeterinaryFacilityView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AddDiseaseWindow.xaml.cs">
-      <DependentUpon>AddDiseaseWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DiseaseManagementView.xaml.cs">
       <DependentUpon>DiseaseManagementView.xaml</DependentUpon>

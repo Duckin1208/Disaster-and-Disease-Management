@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Data; 
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using Disease_Disaster.Controllers;
-using Microsoft.VisualBasic; 
+
 namespace Disease_Disaster.Views
 {
 	public partial class AdministrativeView : UserControl
 	{
+		// Khởi tạo Controller xử lý nghiệp vụ đơn vị hành chính
 		private readonly AdministrativeController _adminController = new AdministrativeController();
 
 		public AdministrativeView()
@@ -16,77 +17,65 @@ namespace Disease_Disaster.Views
 			LoadInitData();
 		}
 
+		// --- KHỞI TẠO DỮ LIỆU BAN ĐẦU ---
 		private void LoadInitData()
 		{
 			try
 			{
-				// Lấy danh sách TẤT CẢ Tỉnh/Thành phố (Cấp 1)
-				// Hàm GetProvinces() đã được định nghĩa trong Controller
+				// 1. Tải danh sách Tỉnh/Thành vào ComboBox
 				DataTable dtTinh = _adminController.GetProvinces();
-
 				if (cbTinh != null)
 				{
-					// Gán dữ liệu vào ComboBox
 					cbTinh.ItemsSource = dtTinh.DefaultView;
 					cbTinh.DisplayMemberPath = "Ten";
 					cbTinh.SelectedValuePath = "Id";
 
-					// Mặc định chọn dòng đầu tiên (thường là Hà Nội hoặc tỉnh đầu bảng chữ cái)
 					if (dtTinh.Rows.Count > 0)
-						cbTinh.SelectedIndex = 0;
+						cbTinh.SelectedIndex = 0; // Mặc định chọn tỉnh đầu tiên
 				}
 
-				// Setup ComboBox Cấp Hành Chính (Huyện/Xã)
-				if (cbLevel != null && cbLevel.Items.Count == 0)
+				// 2. Thiết lập mặc định cho ComboBox Cấp (Huyện/Xã)
+				if (cbLevel != null)
 				{
-					cbLevel.Items.Add("Quận/Huyện/Thị xã"); // Index 0
-					cbLevel.Items.Add("Phường/Xã/Thị trấn"); // Index 1
-					cbLevel.SelectedIndex = 0;
+					cbLevel.SelectedIndex = 0; // Mặc định xem cấp Huyện
 				}
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show($"Lỗi khởi tạo: {ex.Message}");
+				MessageBox.Show($"Lỗi khởi tạo: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 		}
 
-		// Hàm tải dữ liệu lên lưới (DataGrid)
+		// --- XỬ LÝ TẢI DỮ LIỆU LÊN LƯỚI ---
 		private void LoadData()
 		{
 			try
 			{
-				if (dgDonVi == null || cbTinh == null || cbTinh.SelectedValue == null) return;
+				// Kiểm tra các điều khiển giao diện đã được khởi tạo chưa
+				if (dgDonVi == null || cbTinh == null || cbTinh.SelectedValue == null || cbLevel == null) return;
 
-				// 1. Lấy ID của Tỉnh đang được chọn trên ComboBox 
 				int tinhId = (int)cbTinh.SelectedValue;
-
 				string keyword = txtSearch.Text.Trim();
 
-				// 2. Xác định cấp muốn xem (2 = Huyện, 3 = Xã)
-				// Index 0 là Huyện, Index 1 là Xã
+				// Xác định ID cấp hành chính: Huyện (Index 0) = 2, Xã (Index 1) = 3
 				int levelId = (cbLevel.SelectedIndex == 0) ? 2 : 3;
 
-				// 3. Gọi hàm Search trong Controller
-				// Hàm này sẽ tìm các đơn vị thuộc Tỉnh (tinhId) có Cấp tương ứng (levelId)
+				// Gọi hàm Search từ Controller
 				DataTable result = _adminController.Search(tinhId, levelId, keyword);
-
 				dgDonVi.ItemsSource = result.DefaultView;
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show($"Lỗi tải dữ liệu: {ex.Message}");
+				MessageBox.Show($"Lỗi tải dữ liệu: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 		}
 
-		// Khi chọn tỉnh khác -> Tự động tải lại dữ liệu của tỉnh đó
+		// --- CÁC SỰ KIỆN THAY ĐỔI LỰA CHỌN ---
 		private void cbTinh_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			// Reset về xem cấp Huyện để tránh nhầm lẫn khi đổi tỉnh
-			if (cbLevel != null) cbLevel.SelectedIndex = 0;
 			LoadData();
 		}
 
-		// Khi đổi cấp (Huyện <-> Xã) -> Tải lại dữ liệu
 		private void cbLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			LoadData();
@@ -97,7 +86,7 @@ namespace Disease_Disaster.Views
 			LoadData();
 		}
 
-		// Xóa đơn vị
+		// --- CHỨC NĂNG XÓA ĐƠN VỊ ---
 		private void btnDelete_Click(object sender, RoutedEventArgs e)
 		{
 			if (dgDonVi.SelectedItem is DataRowView row)
@@ -105,82 +94,93 @@ namespace Disease_Disaster.Views
 				string ten = row["Ten"].ToString();
 				int id = (int)row["Id"];
 
-				var result = MessageBox.Show($"Bạn có chắc chắn muốn xóa: {ten}?",
-											 "Cảnh báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+				var confirm = MessageBox.Show($"Bạn có chắc chắn muốn xóa đơn vị: {ten}?",
+					"Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-				if (result == MessageBoxResult.Yes)
+				if (confirm == MessageBoxResult.Yes)
 				{
 					if (_adminController.Delete(id))
 					{
-						MessageBox.Show("Xóa thành công!");
+						MessageBox.Show("Xóa thành công!", "Thông báo");
 						LoadData();
 					}
 					else
 					{
-						MessageBox.Show("Không thể xóa. Đơn vị này có thể đang chứa đơn vị con (Xã/Phường) hoặc dữ liệu liên quan.");
+						MessageBox.Show("Không thể xóa. Đơn vị này có thể đang chứa dữ liệu con hoặc đang được sử dụng ở bảng khác.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Stop);
 					}
 				}
 			}
 			else
 			{
-				MessageBox.Show("Vui lòng chọn một dòng để xóa.");
+				MessageBox.Show("Vui lòng chọn một dòng trên bảng để xóa.", "Thông báo");
 			}
 		}
-
-		// Thêm đơn vị mới
+		// 1. CHỨC NĂNG THÊM HUYỆN 
 		private void btnAdd_Click(object sender, RoutedEventArgs e)
 		{
-			if (cbTinh.SelectedValue == null) return;
-
-			int parentId;
-			int levelToAdd;
-
-			// -- Logic xác định Cha/Con --
-
-			// Trường hợp 1: Đang xem Huyện -> Muốn thêm Huyện mới -> Cha là Tỉnh đang chọn
-			if (cbLevel.SelectedIndex == 0)
+			if (cbTinh.SelectedValue == null)
 			{
-				parentId = (int)cbTinh.SelectedValue; // Lấy ID Tỉnh từ ComboBox
-				levelToAdd = 2; // Cấp Huyện
-			}
-			// Trường hợp 2: Đang xem Xã -> Muốn thêm Xã mới -> Cha là Huyện
-			else
-			{
-				// Yêu cầu người dùng phải đang chọn một Huyện trên lưới (hoặc chuyển về view Huyện)
-				// Để đơn giản: Bắt buộc về màn hình Huyện, chọn Huyện rồi bấm Thêm
-				MessageBox.Show("Để thêm Xã/Phường: Vui lòng chuyển ComboBox 'Cấp' về 'Quận/Huyện', chọn Huyện cha trong danh sách, sau đó bấm nút Thêm.", "Hướng dẫn");
+				MessageBox.Show("Vui lòng chọn một Tỉnh/Thành phố trước!", "Thông báo");
 				return;
 			}
 
-			// Hiển thị hộp thoại nhập tên
-			string newName = Interaction.InputBox("Nhập tên đơn vị hành chính mới:", "Thêm Mới", "");
+			int provinceId = (int)cbTinh.SelectedValue;
+			string provinceName = cbTinh.Text;
 
-			if (!string.IsNullOrWhiteSpace(newName))
+			// Sử dụng InputBox để hỏi tên Huyện mới
+			string newDistrictName = Microsoft.VisualBasic.Interaction.InputBox(
+				$"Nhập tên Quận/Huyện mới thuộc {provinceName}:", "Thêm Huyện Mới", "");
+
+			if (!string.IsNullOrWhiteSpace(newDistrictName))
 			{
-				// Nếu đang ở màn hình Huyện mà chọn 1 dòng -> Hệ thống hiểu là muốn thêm Xã vào Huyện đó
-				if (cbLevel.SelectedIndex == 0 && dgDonVi.SelectedItem is DataRowView selectedHuyen)
+				// Cấp 2 = Huyện. Controller sẽ tự kế thừa Chi cục từ Tỉnh (provinceId)
+				if (_adminController.Add(newDistrictName, 2, provinceId))
 				{
-					// User đang chọn 1 Huyện, và bấm thêm. Ta hiểu là thêm Xã vào Huyện này.
-					if (MessageBox.Show($"Bạn muốn thêm '{newName}' làm Xã/Phường trực thuộc '{selectedHuyen["Ten"]}' phải không?\n\n(Chọn No nếu bạn muốn thêm Huyện mới trực thuộc Tỉnh)", "Xác nhận cấp cha", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-					{
-						parentId = (int)selectedHuyen["Id"];
-						levelToAdd = 3;
-					}
-				}
-
-				if (_adminController.Add(newName, levelToAdd, parentId))
-				{
-					MessageBox.Show("Thêm thành công!");
-
-					// Nếu vừa thêm Xã, tự động chuyển view sang Xã
-					if (levelToAdd == 3) cbLevel.SelectedIndex = 1;
-
+					MessageBox.Show($"Đã thêm huyện '{newDistrictName}' thành công. Chi cục đã được gán tự động.", "Thành công");
+					cbLevel.SelectedIndex = 0; // Chuyển về xem Huyện
 					LoadData();
 				}
 				else
 				{
-					MessageBox.Show("Lỗi khi thêm đơn vị.");
+					MessageBox.Show("Lỗi khi thêm Huyện mới.");
 				}
+			}
+		}
+
+		// 2. CHỨC NĂNG THÊM NHANH XÃ 
+		private void btnQuickAdd_Click(object sender, RoutedEventArgs e)
+		{
+			string newCommuneName = txtQuickAddName.Text.Trim();
+			if (string.IsNullOrEmpty(newCommuneName))
+			{
+				MessageBox.Show("Vui lòng nhập tên xã mới!", "Cảnh báo");
+				return;
+			}
+
+			if (dgDonVi.SelectedItem is DataRowView selectedRow)
+			{
+				int parentId = (int)selectedRow["Id"];
+				string capHienTai = selectedRow["Cap"].ToString();
+
+				// Sử dụng Contains để tránh lỗi do chuỗi "Quận/Huyện"
+				if (!capHienTai.Contains("Huyện"))
+				{
+					MessageBox.Show("Để thêm xã, bạn phải chọn một đơn vị cấp HUYỆN trên bảng dữ liệu.", "Lỗi");
+					return;
+				}
+
+				// Cấp 3 = Xã. Controller sẽ tự kế thừa Chi cục từ Huyện (parentId)
+				if (_adminController.Add(newCommuneName, 3, parentId))
+				{
+					MessageBox.Show($"Đã thêm xã '{newCommuneName}' thành công!", "Thành công");
+					txtQuickAddName.Clear();
+					cbLevel.SelectedIndex = 1; // Chuyển sang xem Xã để thấy kết quả
+					LoadData();
+				}
+			}
+			else
+			{
+				MessageBox.Show("Vui lòng chọn một Huyện trên bảng trước khi thêm xã con.", "Thông báo");
 			}
 		}
 	}
