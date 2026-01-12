@@ -3,11 +3,23 @@
   "WorkspaceRootPath": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|c:\\users\\huan\\desktop\\ktpmud\\qldbtt\\views\\adddiseasewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|solutionrelative:views\\adddiseasewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\administrativecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|solutionrelative:controllers\\administrativecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\administrativeview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|solutionrelative:views\\administrativeview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|c:\\users\\huan\\desktop\\ktpmud\\qldbtt\\views\\administrativeview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\administrativeview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|solutionrelative:views\\administrativeview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
@@ -17,14 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\helpers\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|solutionrelative:helpers\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\administrativecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|solutionrelative:controllers\\administrativecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\adddiseasewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|solutionrelative:views\\adddiseasewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\diseasemanagementview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -170,10 +174,6 @@
       "RelativeMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|solutionrelative:controllers\\certificatecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\usermanagementview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{CF98B68B-AB6A-45F3-AE3F-9289BCFB589E}|Disease_Disaster.csproj|solutionrelative:views\\usermanagementview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
@@ -284,60 +284,23 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AddDiseaseWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\Views\\AddDiseaseWindow.xaml",
-              "RelativeDocumentMoniker": "Views\\AddDiseaseWindow.xaml",
-              "ToolTip": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\Views\\AddDiseaseWindow.xaml",
-              "RelativeToolTip": "Views\\AddDiseaseWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-01-12T15:03:26.627Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AdministrativeView.xaml",
-              "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\AdministrativeView.xaml",
-              "RelativeDocumentMoniker": "views\\AdministrativeView.xaml",
-              "ToolTip": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\AdministrativeView.xaml",
-              "RelativeToolTip": "views\\AdministrativeView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-01-10T13:14:25.863Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "DiseaseManagementView.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\DiseaseManagementView.xaml.cs",
-              "RelativeDocumentMoniker": "views\\DiseaseManagementView.xaml.cs",
-              "ToolTip": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\DiseaseManagementView.xaml.cs",
-              "RelativeToolTip": "views\\DiseaseManagementView.xaml.cs",
-              "ViewState": "AgIAAJ4AAAAAAAAAAAAUwLIAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-11T02:05:54.962Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "AdministrativeView.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\AdministrativeView.xaml.cs",
               "RelativeDocumentMoniker": "views\\AdministrativeView.xaml.cs",
               "ToolTip": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\AdministrativeView.xaml.cs",
               "RelativeToolTip": "views\\AdministrativeView.xaml.cs",
-              "ViewState": "AgIAAI8AAAAAAAAAAAAAwJUAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAK4AAAAAAAAAAAAAAJUAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T13:15:13.58Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-10T13:15:13.58Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "AdministrativeController.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\AdministrativeController.cs",
               "RelativeDocumentMoniker": "controllers\\AdministrativeController.cs",
@@ -349,7 +312,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "Disease_Disaster",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\Disease_Disaster.csproj",
               "RelativeDocumentMoniker": "Disease_Disaster.csproj",
@@ -360,7 +323,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "DatabaseHelper.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\helpers\\DatabaseHelper.cs",
               "RelativeDocumentMoniker": "helpers\\DatabaseHelper.cs",
@@ -372,19 +335,66 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\AuthController.cs",
+              "RelativeToolTip": "controllers\\AuthController.cs",
+              "ViewState": "AgIAAGgAAAAAAAAAAAAAAGIAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-10T09:08:57.083Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "AddDiseaseWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\Views\\AddDiseaseWindow.xaml",
+              "RelativeDocumentMoniker": "Views\\AddDiseaseWindow.xaml",
+              "ToolTip": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\Views\\AddDiseaseWindow.xaml",
+              "RelativeToolTip": "Views\\AddDiseaseWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-01-12T15:03:26.627Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "AddDiseaseWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\AddDiseaseWindow.xaml.cs",
               "RelativeDocumentMoniker": "views\\AddDiseaseWindow.xaml.cs",
               "ToolTip": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\AddDiseaseWindow.xaml.cs",
               "RelativeToolTip": "views\\AddDiseaseWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAiwCMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-12T15:03:59.268Z"
+              "WhenOpened": "2026-01-12T15:03:59.268Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
+              "Title": "DiseaseManagementView.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\DiseaseManagementView.xaml.cs",
+              "RelativeDocumentMoniker": "views\\DiseaseManagementView.xaml.cs",
+              "ToolTip": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\DiseaseManagementView.xaml.cs",
+              "RelativeToolTip": "views\\DiseaseManagementView.xaml.cs",
+              "ViewState": "AgIAAJ4AAAAAAAAAAAAUwLIAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-11T02:05:54.962Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AdministrativeView.xaml",
+              "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\AdministrativeView.xaml",
+              "RelativeDocumentMoniker": "views\\AdministrativeView.xaml",
+              "ToolTip": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\AdministrativeView.xaml",
+              "RelativeToolTip": "views\\AdministrativeView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-01-10T13:14:25.863Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "SystemModels.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\models\\SystemModels.cs",
               "RelativeDocumentMoniker": "models\\SystemModels.cs",
@@ -396,7 +406,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "VeterinaryFacilityView.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\VeterinaryFacilityView.xaml.cs",
               "RelativeDocumentMoniker": "views\\VeterinaryFacilityView.xaml.cs",
@@ -408,7 +418,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "ReportModels.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\models\\ReportModels.cs",
               "RelativeDocumentMoniker": "models\\ReportModels.cs",
@@ -420,7 +430,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "FacilityModels.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\models\\FacilityModels.cs",
               "RelativeDocumentMoniker": "models\\FacilityModels.cs",
@@ -432,7 +442,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "DiseaseModels.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\models\\DiseaseModels.cs",
               "RelativeDocumentMoniker": "models\\DiseaseModels.cs",
@@ -444,7 +454,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "DisasterModels.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\models\\DisasterModels.cs",
               "RelativeDocumentMoniker": "models\\DisasterModels.cs",
@@ -512,7 +522,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "DisasterManagementView.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\DisasterManagementView.xaml.cs",
               "RelativeDocumentMoniker": "views\\DisasterManagementView.xaml.cs",
@@ -524,7 +534,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "ChangePasswordWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\ChangePasswordWindow.xaml.cs",
               "RelativeDocumentMoniker": "views\\ChangePasswordWindow.xaml.cs",
@@ -536,7 +546,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "CertificateWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\CertificateWindow.xaml.cs",
               "RelativeDocumentMoniker": "views\\CertificateWindow.xaml.cs",
@@ -548,7 +558,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "AuthModels.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\models\\AuthModels.cs",
               "RelativeDocumentMoniker": "models\\AuthModels.cs",
@@ -560,7 +570,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "ChiCucManagementView.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\ChiCucManagementView.xaml.cs",
               "RelativeDocumentMoniker": "views\\ChiCucManagementView.xaml.cs",
@@ -572,7 +582,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "ChiCucManagementView.xaml",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\ChiCucManagementView.xaml",
               "RelativeDocumentMoniker": "views\\ChiCucManagementView.xaml",
@@ -594,7 +604,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "VeterinaryFacilityView.xaml",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\VeterinaryFacilityView.xaml",
               "RelativeDocumentMoniker": "views\\VeterinaryFacilityView.xaml",
@@ -605,7 +615,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "UserManagementView.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\UserManagementView.xaml.cs",
               "RelativeDocumentMoniker": "views\\UserManagementView.xaml.cs",
@@ -617,7 +627,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "UserEditDialog.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\UserEditDialog.xaml.cs",
               "RelativeDocumentMoniker": "views\\UserEditDialog.xaml.cs",
@@ -629,7 +639,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "UserAddDialog.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\UserAddDialog.xaml.cs",
               "RelativeDocumentMoniker": "views\\UserAddDialog.xaml.cs",
@@ -685,7 +695,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "SystemLogsView.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\SystemLogsView.xaml.cs",
               "RelativeDocumentMoniker": "views\\SystemLogsView.xaml.cs",
@@ -697,7 +707,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "SafeZoneView.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\SafeZoneView.xaml.cs",
               "RelativeDocumentMoniker": "views\\SafeZoneView.xaml.cs",
@@ -721,7 +731,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "UserSection.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\helpers\\UserSection.cs",
               "RelativeDocumentMoniker": "helpers\\UserSection.cs",
@@ -733,7 +743,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "FileAttachmentHelper.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\helpers\\FileAttachmentHelper.cs",
               "RelativeDocumentMoniker": "helpers\\FileAttachmentHelper.cs",
@@ -745,7 +755,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "RegisterWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\RegisterWindow.xaml.cs",
               "RelativeDocumentMoniker": "views\\RegisterWindow.xaml.cs",
@@ -757,7 +767,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "views\\MainWindow.xaml.cs",
@@ -769,7 +779,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "LoginWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\LoginWindow.xaml.cs",
               "RelativeDocumentMoniker": "views\\LoginWindow.xaml.cs",
@@ -781,7 +791,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "HouseholdStatsWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\views\\HouseholdStatsWindow.xaml.cs",
               "RelativeDocumentMoniker": "views\\HouseholdStatsWindow.xaml.cs",
@@ -815,7 +825,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "UserManagementController.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\UserManagementController.cs",
               "RelativeDocumentMoniker": "controllers\\UserManagementController.cs",
@@ -827,7 +837,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "ReportController.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\ReportController.cs",
               "RelativeDocumentMoniker": "controllers\\ReportController.cs",
@@ -839,7 +849,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "RegisterController.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\RegisterController.cs",
               "RelativeDocumentMoniker": "controllers\\RegisterController.cs",
@@ -851,7 +861,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "PasswordController.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\PasswordController.cs",
               "RelativeDocumentMoniker": "controllers\\PasswordController.cs",
@@ -863,7 +873,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "LoginController.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\LoginController.cs",
               "RelativeDocumentMoniker": "controllers\\LoginController.cs",
@@ -875,7 +885,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "FacilityManagementController.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\FacilityManagementController.cs",
               "RelativeDocumentMoniker": "controllers\\FacilityManagementController.cs",
@@ -887,7 +897,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "DiseaseController.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\DiseaseController.cs",
               "RelativeDocumentMoniker": "controllers\\DiseaseController.cs",
@@ -899,7 +909,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "DisasterController.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\DisasterController.cs",
               "RelativeDocumentMoniker": "controllers\\DisasterController.cs",
@@ -911,7 +921,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "ChiCucThuYController.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\ChiCucThuYController.cs",
               "RelativeDocumentMoniker": "controllers\\ChiCucThuYController.cs",
@@ -923,7 +933,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "CertificateController.cs",
               "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\CertificateController.cs",
               "RelativeDocumentMoniker": "controllers\\CertificateController.cs",
@@ -932,18 +942,6 @@
               "ViewState": "AgIAACwAAAAAAAAAAAAUwEUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-10T10:12:49.761Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 42,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\controllers\\AuthController.cs",
-              "RelativeToolTip": "controllers\\AuthController.cs",
-              "ViewState": "AgIAAGgAAAAAAAAAAAAAAGIAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T09:08:57.083Z"
             },
             {
               "$type": "Document",
@@ -976,8 +974,7 @@
               "ToolTip": "C:\\Users\\Huan\\Desktop\\KTPMUD\\QLDBTT\\App.xaml",
               "RelativeToolTip": "App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-01-10T09:31:00.277Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-10T09:31:00.277Z"
             },
             {
               "$type": "Document",
