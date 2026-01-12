@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="Disease_Disaster.Views.AdministrativeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="1000">
+
+	<Grid Background="White" Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<Border Grid.Row="0" BorderBrush="#DDDDDD" BorderThickness="1" Padding="10" Background="#F9F9F9" Margin="0,0,0,10">
+			<StackPanel Orientation="Horizontal">
+				<Label Content="Tỉnh/Thành:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+				<ComboBox x:Name="cbTinh" Width="150" Height="30" 
+                          DisplayMemberPath="Ten" SelectedValuePath="Id"
+                          SelectionChanged="cbTinh_SelectionChanged"/>
+
+				<Label Content="Cấp:" VerticalAlignment="Center" Margin="10,0,5,0"/>
+				<ComboBox x:Name="cbLevel" Width="100" Height="30" SelectedIndex="0"
+                          SelectionChanged="cbLevel_SelectionChanged">
+					<ComboBoxItem Content="Huyện"/>
+					<ComboBoxItem Content="Xã"/>
+				</ComboBox>
+
+				<TextBox x:Name="txtSearch" Width="180" Height="30" Margin="10,0,0,0" 
+                         VerticalContentAlignment="Center" ToolTip="Nhập tên đơn vị..."/>
+
+				<Button x:Name="btnSearch" Content="Tìm" Width="70" Height="30" Margin="5,0,0,0" 
+                        Click="btnSearch_Click" Background="#3498DB" Foreground="White"/>
+
+				<Button x:Name="btnAdd" Content="Thêm" Width="70" Height="30" Margin="5,0,0,0" 
+                        Click="btnAdd_Click" Background="#2ECC71" Foreground="White"/>
+
+				<Button x:Name="btnDelete" Content="Xóa" Width="70" Height="30" Margin="5,0,0,0" 
+                        Click="btnDelete_Click" Background="#E74C3C" Foreground="White"/>
+			</StackPanel>
+		</Border>
+
+		<DataGrid x:Name="dgDonVi" Grid.Row="1" AutoGenerateColumns="False" 
+                  IsReadOnly="True" SelectionMode="Single" BorderBrush="#CCCCCC" BorderThickness="1">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+				<DataGridTextColumn Header="Tên Đơn Vị" Binding="{Binding Ten}" Width="*"/>
+				<DataGridTextColumn Header="Cấp" Binding="{Binding CapHanhChinh}" Width="120"/>
+				<DataGridTextColumn Header="Trực Thuộc" Binding="{Binding TrucThuoc}" Width="150"/>
+				<DataGridTextColumn Header="Chi Cục Thú Y" Binding="{Binding TenChiCuc}" Width="200"/>
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
+</UserControl>

@@ -1,0 +1,131 @@
+C:\Users\Huan\Downloads\New folder\QLDBTT\bin\Debug\PlantManagement.exe.config
+C:\Users\Huan\Downloads\New folder\QLDBTT\bin\Debug\PlantManagement.exe
+C:\Users\Huan\Downloads\New folder\QLDBTT\bin\Debug\PlantManagement.pdb
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Disease_Disaster.csproj.AssemblyReference.cache
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\HouseholdStatsWindow.baml
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\CertificateWindow.baml
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\VeterinaryFacilityView.baml
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\AddDiseaseWindow.baml
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\DiseaseManagementView.baml
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\DisasterManagementView.baml
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\AdministrativeView.baml
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\UserAddDialog.baml
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\RegisterWindow.baml
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\MainWindow.baml
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\SystemLogsView.baml
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\UserManagementView.baml
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\LoginWindow.baml
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\App.baml
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\HouseholdStatsWindow.g.cs
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\CertificateWindow.g.cs
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\VeterinaryFacilityView.g.cs
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\AddDiseaseWindow.g.cs
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\DiseaseManagementView.g.cs
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\DisasterManagementView.g.cs
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\AdministrativeView.g.cs
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\UserAddDialog.g.cs
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\RegisterWindow.g.cs
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\MainWindow.g.cs
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\SystemLogsView.g.cs
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\UserManagementView.g.cs
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Views\LoginWindow.g.cs
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\App.g.cs
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\PlantManagement_MarkupCompile.cache
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\PlantManagement.g.resources
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\PlantManagement.Properties.Resources.resources
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Disease_Disaster.csproj.GenerateResource.cache
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\Disease_Disaster.csproj.CoreCompileInputs.cache
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\PlantManagement.exe
+C:\Users\Huan\Downloads\New folder\QLDBTT\obj\Debug\PlantManagement.pdb
+C:\Users\Huan\Desktop\New folder\QLDBTT\bin\Debug\PlantManagement.exe.config
+C:\Users\Huan\Desktop\New folder\QLDBTT\bin\Debug\PlantManagement.exe
+C:\Users\Huan\Desktop\New folder\QLDBTT\bin\Debug\PlantManagement.pdb
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Disease_Disaster.csproj.AssemblyReference.cache
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\SafeZoneView.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\ChiCucManagementView.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\HouseholdStatsWindow.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\CertificateWindow.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\VeterinaryFacilityView.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\AddDiseaseWindow.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\DiseaseManagementView.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\DisasterManagementView.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\AdministrativeView.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\UserAddDialog.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\RegisterWindow.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\MainWindow.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\SystemLogsView.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\UserManagementView.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\LoginWindow.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\App.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\SafeZoneView.g.cs
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\ChiCucManagementView.g.cs
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\HouseholdStatsWindow.g.cs
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\CertificateWindow.g.cs
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\VeterinaryFacilityView.g.cs
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\AddDiseaseWindow.g.cs
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\DiseaseManagementView.g.cs
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\DisasterManagementView.g.cs
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\AdministrativeView.g.cs
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\UserAddDialog.g.cs
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\RegisterWindow.g.cs
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\MainWindow.g.cs
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\SystemLogsView.g.cs
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\UserManagementView.g.cs
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\LoginWindow.g.cs
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\App.g.cs
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\PlantManagement_MarkupCompile.cache
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\PlantManagement.g.resources
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\PlantManagement.Properties.Resources.resources
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Disease_Disaster.csproj.GenerateResource.cache
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Disease_Disaster.csproj.CoreCompileInputs.cache
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\PlantManagement.exe
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\PlantManagement.pdb
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\ChangePasswordWindow.baml
+C:\Users\Huan\Desktop\New folder\QLDBTT\obj\Debug\Views\ChangePasswordWindow.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\bin\Debug\PlantManagement.exe.config
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\bin\Debug\PlantManagement.exe
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\bin\Debug\PlantManagement.pdb
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Disease_Disaster.csproj.AssemblyReference.cache
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\ChangePasswordWindow.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\SafeZoneView.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\ChiCucManagementView.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\HouseholdStatsWindow.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\CertificateWindow.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\VeterinaryFacilityView.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\AddDiseaseWindow.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\DiseaseManagementView.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\DisasterManagementView.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\AdministrativeView.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\UserAddDialog.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\RegisterWindow.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\MainWindow.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\SystemLogsView.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\UserManagementView.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\LoginWindow.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\App.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\ChangePasswordWindow.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\SafeZoneView.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\ChiCucManagementView.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\HouseholdStatsWindow.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\CertificateWindow.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\VeterinaryFacilityView.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\AddDiseaseWindow.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\DiseaseManagementView.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\DisasterManagementView.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\AdministrativeView.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\UserAddDialog.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\RegisterWindow.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\MainWindow.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\SystemLogsView.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\UserManagementView.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\LoginWindow.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\App.g.cs
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\PlantManagement_MarkupCompile.cache
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\PlantManagement.g.resources
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\PlantManagement.Properties.Resources.resources
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Disease_Disaster.csproj.GenerateResource.cache
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Disease_Disaster.csproj.CoreCompileInputs.cache
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\PlantManagement.exe
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\PlantManagement.pdb
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\UserEditDialog.baml
+C:\Users\Huan\Desktop\KTPMUD\QLDBTT\obj\Debug\Views\UserEditDialog.g.cs

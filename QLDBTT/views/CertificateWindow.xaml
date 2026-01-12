@@ -1,0 +1,112 @@
+﻿<Window x:Class="Disease_Disaster.Views.CertificateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Quản lý Giấy Phép &amp; Điều Kiện Chăn Nuôi" Height="750" Width="950" 
+        WindowStartupLocation="CenterScreen" Background="#F4F7F6">
+
+	<Grid Margin="15">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="300"/>
+			<RowDefinition Height="5"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<StackPanel Grid.Row="0" Margin="0,0,0,10">
+			<TextBlock x:Name="lblTitle" Text="HỆ THỐNG CẤP GIẤY CHỨNG NHẬN" FontSize="20" FontWeight="Bold" Foreground="#2980B9"/>
+			<TextBlock x:Name="lblSubTitle" Text="Cơ sở: ..." FontStyle="Italic" Foreground="Gray"/>
+		</StackPanel>
+
+		<GroupBox Grid.Row="1" Header="1. Danh sách Giấy Phép" BorderBrush="#2980B9" Background="White">
+			<Grid Margin="5">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="280"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<StackPanel Grid.Column="0" Margin="0,0,10,0">
+					<Label Content="Số Giấy Phép:" FontWeight="SemiBold"/>
+					<TextBox x:Name="txtSoGiayPhep" Height="30" VerticalContentAlignment="Center"/>
+
+					<Label Content="Ngày Cấp:" Margin="0,5,0,0" FontWeight="SemiBold"/>
+					<DatePicker x:Name="dpNgayCap" Height="30"/>
+
+					<Label Content="Ngày Hết Hạn:" Margin="0,5,0,0" FontWeight="SemiBold"/>
+					<DatePicker x:Name="dpNgayHetHan" Height="30"/>
+
+					<Button x:Name="btnAddCert" Content="Cấp Mới Giấy Phép" Height="40" Margin="0,20,0,0" 
+                            Background="#2980B9" Foreground="White" FontWeight="Bold" Click="btnAddCert_Click">
+						<Button.Resources>
+							<Style TargetType="Border">
+								<Setter Property="CornerRadius" Value="5"/>
+							</Style>
+						</Button.Resources>
+					</Button>
+				</StackPanel>
+
+				<DataGrid x:Name="dgCertificates" Grid.Column="1" AutoGenerateColumns="False" 
+                          IsReadOnly="True" SelectionMode="Single" SelectionChanged="dgCertificates_SelectionChanged"
+                          BorderBrush="#DDD" RowHeight="35">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Số GP" Binding="{Binding SoGiayPhep}" Width="*"/>
+						<DataGridTextColumn Header="Ngày Cấp" Binding="{Binding NgayCap, StringFormat=dd/MM/yyyy}" Width="110"/>
+						<DataGridTextColumn Header="Hết Hạn" Binding="{Binding NgayHetHan, StringFormat=dd/MM/yyyy}" Width="110"/>
+						<DataGridTemplateColumn Header="Tác vụ" Width="70">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<Button Content="Xóa" Background="#E74C3C" Foreground="White" Padding="5,2" Click="btnDeleteCert_Click"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+					</DataGrid.Columns>
+				</DataGrid>
+			</Grid>
+		</GroupBox>
+
+		<GridSplitter Grid.Row="2" Height="2" HorizontalAlignment="Stretch" Background="#BDC3C7" Margin="0,5"/>
+
+		<GroupBox Grid.Row="3" Header="2. Điều Kiện Chăn Nuôi Kèm Theo" BorderBrush="#27AE60" Foreground="#27AE60" FontWeight="Bold" Background="White">
+			<Grid Margin="5">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="320"/>
+				</Grid.ColumnDefinitions>
+
+				<DataGrid x:Name="dgConditions" Grid.Column="0" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,0,10,0" BorderBrush="#DDD" RowHeight="35">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Tiêu chí / Điều kiện" Binding="{Binding Ten}" Width="180"/>
+						<DataGridTextColumn Header="Mô tả chi tiết" Binding="{Binding MoTa}" Width="*"/>
+						<DataGridTemplateColumn Header="Xóa" Width="60">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<Button Content="Xóa" Background="#95A5A6" Foreground="White" FontSize="10" Click="btnDeleteCond_Click"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+					</DataGrid.Columns>
+				</DataGrid>
+
+				<Border Grid.Column="1" Background="#F9F9F9" Padding="15" CornerRadius="8" BorderBrush="#EEE" BorderThickness="1">
+					<StackPanel>
+						<TextBlock Text="THÊM ĐIỀU KIỆN MỚI" FontWeight="Bold" Margin="0,0,0,15" Foreground="#2C3E50"/>
+						<Label Content="Tên tiêu chí:"/>
+						<TextBox x:Name="txtCondName" Height="30" VerticalContentAlignment="Center" Margin="0,0,0,10"/>
+						<Label Content="Mô tả cụ thể:"/>
+						<TextBox x:Name="txtCondDesc" Height="80" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="0,0,0,15"/>
+						<Button x:Name="btnAddCond" Content="➕ Thêm Điều Kiện" Height="40" Background="#27AE60" Foreground="White" FontWeight="Bold" Click="btnAddCond_Click"/>
+					</StackPanel>
+				</Border>
+			</Grid>
+		</GroupBox>
+
+		<StatusBar Grid.Row="4" Background="#ECF0F1" Margin="-15,10,-15,-15" Height="30">
+			<StatusBarItem>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="Trạng thái: " Foreground="#7F8C8D"/>
+					<TextBlock x:Name="txtStatusInfo" Text="Vui lòng chọn giấy phép để xem chi tiết" FontWeight="Bold" Foreground="#2980B9"/>
+				</StackPanel>
+			</StatusBarItem>
+		</StatusBar>
+	</Grid>
+</Window>

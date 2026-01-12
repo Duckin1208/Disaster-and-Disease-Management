@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="Disease_Disaster.Views.SafeZoneView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="White" Height="700" Width="1100">
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<StackPanel Grid.Row="0" Margin="0,0,0,20">
+			<TextBlock Text="TRA CỨU VÙNG AN TOÀN DỊCH BỆNH" FontSize="24" FontWeight="Bold" Foreground="#27AE60"/>
+			<TextBlock Text="Quản lý các vùng, cơ sở đã được cấp giấy chứng nhận an toàn dịch bệnh động vật" 
+                       Foreground="Gray" FontStyle="Italic" Margin="0,5,0,0"/>
+		</StackPanel>
+
+		<Border Grid.Row="1" Background="#F9F9F9" BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="5" Padding="15" Margin="0,0,0,20">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="Từ khóa:" VerticalAlignment="Center" FontWeight="SemiBold" Margin="0,0,10,0"/>
+				<TextBox x:Name="txtSearch" Width="300" Height="35" VerticalContentAlignment="Center" 
+                         Padding="5,0" TextChanged="txtSearch_TextChanged" 
+                         ToolTip="Tìm theo tên vùng, tên tỉnh hoặc số giấy phép"/>
+
+				<Button Content="🔍 Tìm kiếm" Width="120" Height="35" Margin="15,0,0,0" 
+                        Background="#2980B9" Foreground="White" FontWeight="Bold" Click="btnSearch_Click"/>
+
+				<Button Content="🖨️ Xuất Danh Sách" Width="150" Height="35" Margin="10,0,0,0" 
+                        Background="#7F8C8D" Foreground="White" Click="btnExport_Click"/>
+			</StackPanel>
+		</Border>
+
+		<DataGrid x:Name="dgSafeZones" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True" 
+                  BorderBrush="#BDC3C7" BorderThickness="1" RowHeight="45" 
+                  GridLinesVisibility="Horizontal" HeadersVisibility="Column">
+			<DataGrid.Resources>
+				<Style TargetType="DataGridColumnHeader">
+					<Setter Property="Height" Value="40"/>
+					<Setter Property="Background" Value="#ECF0F1"/>
+					<Setter Property="FontWeight" Value="Bold"/>
+					<Setter Property="Padding" Value="10,0"/>
+				</Style>
+			</DataGrid.Resources>
+
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Tên Vùng / Cơ Sở" Binding="{Binding Ten}" Width="300"/>
+				<DataGridTextColumn Header="Địa Điểm" Binding="{Binding TenDonVi}" Width="150"/>
+				<DataGridTextColumn Header="Số Giấy Phép" Binding="{Binding SoGiayPhep}" Width="180"/>
+
+				<DataGridTextColumn Header="Ngày Hết Hạn" Binding="{Binding NgayHetHan, StringFormat=dd/MM/yyyy}" Width="120"/>
+
+				<DataGridTemplateColumn Header="Trạng Thái" Width="150">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<Border CornerRadius="10" Padding="10,2" HorizontalAlignment="Center">
+								<Border.Style>
+									<Style TargetType="Border">
+										<Style.Triggers>
+											<DataTrigger Binding="{Binding ColorStatus}" Value="Green">
+												<Setter Property="Background" Value="#D5F5E3"/>
+											</DataTrigger>
+											<DataTrigger Binding="{Binding ColorStatus}" Value="Red">
+												<Setter Property="Background" Value="#FADBD8"/>
+											</DataTrigger>
+											<DataTrigger Binding="{Binding ColorStatus}" Value="Gray">
+												<Setter Property="Background" Value="#EBEDEF"/>
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</Border.Style>
+								<TextBlock Text="{Binding TrangThai}" FontWeight="Bold" HorizontalAlignment="Center">
+									<TextBlock.Style>
+										<Style TargetType="TextBlock">
+											<Style.Triggers>
+												<DataTrigger Binding="{Binding ColorStatus}" Value="Green">
+													<Setter Property="Foreground" Value="#1E8449"/>
+												</DataTrigger>
+												<DataTrigger Binding="{Binding ColorStatus}" Value="Red">
+													<Setter Property="Foreground" Value="#C0392B"/>
+												</DataTrigger>
+												<DataTrigger Binding="{Binding ColorStatus}" Value="Gray">
+													<Setter Property="Foreground" Value="#7F8C8D"/>
+												</DataTrigger>
+											</Style.Triggers>
+										</Style>
+									</TextBlock.Style>
+								</TextBlock>
+							</Border>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+
+				<DataGridTemplateColumn Header="Tác vụ" Width="*">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<Button Content="Chi tiết" Width="80" Height="30" Background="#3498DB" Foreground="White" Click="btnDetail_Click"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
+</UserControl>

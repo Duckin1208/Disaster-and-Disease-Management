@@ -1,0 +1,14 @@
+﻿<Window x:Class="Disease_Disaster.Views.HouseholdStatsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Thống Kê" Height="400" Width="600" WindowStartupLocation="CenterScreen">
+	<Grid>
+		<DataGrid x:Name="dgStats" AutoGenerateColumns="False" IsReadOnly="True">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Đơn Vị" Binding="{Binding TenDonVi}"/>
+				<DataGridTextColumn Header="Số Lượng" Binding="{Binding SoLuongHo}"/>
+				<DataGridTextColumn Header="Quy Mô" Binding="{Binding QuyMoTieuBieu}"/>
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
+</Window>
