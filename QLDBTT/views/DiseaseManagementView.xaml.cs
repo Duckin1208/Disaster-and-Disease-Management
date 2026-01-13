@@ -1,204 +1,288 @@
 ﻿using System;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
-using System.Text;
-using System.Data;
 using Disease_Disaster.Controllers;
-using Disease_Disaster.Models;
 
 namespace Disease_Disaster.Views
 {
 	public partial class DiseaseManagementView : UserControl
 	{
+		// Khởi tạo các Controller
 		private readonly DiseaseController _controller = new DiseaseController();
 		private readonly AdministrativeController _adminController = new AdministrativeController();
 
 		public DiseaseManagementView()
 		{
 			InitializeComponent();
+
+			// Load toàn bộ dữ liệu ban đầu
 			LoadInitData();
-			LoadData();
+			LoadOutbreaks();     // Load danh sách ổ dịch lên lưới
+			LoadVaccinations();  // Load danh sách tiêm phòng lên lưới
 		}
 
+		// --- 1. KHỞI TẠO DỮ LIỆU CHUNG ---
 		private void LoadInitData()
 		{
 			try
 			{
-				// 1. Nạp danh sách Loại bệnh
-				cbBenh.ItemsSource = _controller.GetLoaiBenh();
+				// 1. Load danh sách Bệnh (Dùng chung cho cả 2 tab)
+				LoadDiseaseComboBoxes();
 
-				// 2. Nạp danh sách TỈNH (Cấp 1) vào cbTinh
-				// Hàm GetProvinces() lấy toàn bộ 63 tỉnh
+				// 2. Load danh sách Tỉnh (Chỉ dùng cho Tab 1: Ổ Dịch)
+				// Lưu ý: Cần .DefaultView
 				var dtTinh = _adminController.GetProvinces();
+				if (dtTinh != null)
+					cbTinhOD.ItemsSource = dtTinh.DefaultView;
 
-				cbTinh.ItemsSource = dtTinh.DefaultView;
-				cbTinh.DisplayMemberPath = "Ten";
-				cbTinh.SelectedValuePath = "Id";
+				// 3. Load danh sách Ổ dịch (Dùng cho Tab 2: Tiêm Phòng)
+				LoadOutbreakComboBox();
 
-				// Mặc định chọn dòng đầu (VD: Hà Nội)
-				if (dtTinh.Rows.Count > 0)
-					cbTinh.SelectedIndex = 0;
+				// 4. Set ngày mặc định cho DatePicker
+				dpNgayTiem.SelectedDate = DateTime.Now;
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("Lỗi khởi tạo danh mục: " + ex.Message);
+				MessageBox.Show("Lỗi khởi tạo dữ liệu: " + ex.Message);
 			}
 		}
 
-		// Sự kiện: Khi chọn Tỉnh -> Nạp danh sách Huyện tương ứng
-		private void cbTinh_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		// Hàm hỗ trợ load danh sách bệnh vào cả 2 ComboBox
+		private void LoadDiseaseComboBoxes()
 		{
-			try
+			var dtBenh = _controller.GetDiseaseTypes();
+			if (dtBenh != null)
 			{
-				if (cbTinh.SelectedValue != null)
+				cbBenhOD.ItemsSource = dtBenh.DefaultView; // Tab 1
+				cbBenhTP.ItemsSource = dtBenh.DefaultView; // Tab 2
+			}
+		}
+
+		// Hàm hỗ trợ load danh sách ổ dịch vào ComboBox bên tab Tiêm phòng
+		private void LoadOutbreakComboBox()
+		{
+			var dtOdich = _controller.GetOutbreakList();
+			if (dtOdich != null)
+			{
+				cbODichTP.ItemsSource = dtOdich.DefaultView;
+			}
+		}
+
+		// --- 2. SỰ KIỆN THÊM LOẠI BỆNH MỚI (NÚT +) ---
+		private void btnAddDiseaseType_Click(object sender, RoutedEventArgs e)
+		{
+			// Mở cửa sổ nhập liệu
+			AddDiseaseTypeWindow addWindow = new AddDiseaseTypeWindow();
+
+			// Nếu người dùng ấn Lưu
+			if (addWindow.ShowDialog() == true)
+			{
+				string tenMoi = addWindow.TenBenh;
+				string moTa = addWindow.MoTa;
+
+				// Gọi Controller lưu vào DB
+				bool result = _controller.AddDiseaseType(tenMoi, moTa);
+
+				if (result)
 				{
-					int tinhId = (int)cbTinh.SelectedValue;
+					MessageBox.Show("Thêm loại bệnh mới thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
 
-					// Nạp các huyện thuộc tỉnh đó vào cbDonVi
-					cbDonVi.ItemsSource = _adminController.GetAllHuyen(tinhId).DefaultView;
-					cbDonVi.DisplayMemberPath = "Ten";
-					cbDonVi.SelectedValuePath = "Id";
-					cbDonVi.SelectedIndex = -1; // Reset lựa chọn
-				}
-			}
-			catch { }
-		}
+					// Load lại ComboBox ở cả 2 tab để cập nhật tên bệnh vừa thêm
+					LoadDiseaseComboBoxes();
 
-		private void LoadData()
-		{
-			try
-			{
-				string keyword = txtSearch.Text.Trim();
-				dgDisease.ItemsSource = _controller.GetOutbreaks(keyword);
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message);
-			}
-		}
-
-		private void btnSearch_Click(object sender, RoutedEventArgs e) => LoadData();
-		private void txtSearch_TextChanged(object sender, TextChangedEventArgs e) => LoadData();
-
-		private void btnSave_Click(object sender, RoutedEventArgs e)
-		{
-			// Kiểm tra: Phải chọn Tỉnh và Huyện
-			if (cbDonVi.SelectedValue == null)
-			{
-				MessageBox.Show("Vui lòng chọn Địa điểm (Tỉnh -> Huyện) xảy ra dịch!");
-				return;
-			}
-			if (cbBenh.SelectedValue == null)
-			{
-				MessageBox.Show("Vui lòng chọn Loại dịch bệnh!");
-				return;
-			}
-			if (!int.TryParse(txtSoLuong.Text, out int soLuong) || soLuong < 0)
-			{
-				MessageBox.Show("Số lượng mắc bệnh phải là số nguyên dương!");
-				return;
-			}
-
-			try
-			{
-				// DonViId lấy từ ComboBox Huyện (cbDonVi)
-				bool success = _controller.AddOutbreak(
-					(int)cbDonVi.SelectedValue,
-					(int)cbBenh.SelectedValue,
-					DateTime.Now,
-					soLuong,
-					txtNguyenNhan.Text,
-					chkVaccine.IsChecked == true
-				);
-
-				if (success)
-				{
-					MessageBox.Show("Khai báo ổ dịch thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-					LoadData();
-					ClearForm();
+					// Tự động chọn bệnh vừa thêm cho ComboBox ở tab hiện tại (Tab 1)
+					cbBenhOD.Text = tenMoi;
 				}
 				else
 				{
-					MessageBox.Show("Lỗi: Không thể lưu vào cơ sở dữ liệu.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+					MessageBox.Show("Thêm thất bại hoặc tên bệnh đã tồn tại.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+				}
+			}
+		}
+
+		// ============================================================
+		// TAB 1: QUẢN LÝ Ổ DỊCH
+		// ============================================================
+
+		private void LoadOutbreaks()
+		{
+			dgOutbreak.ItemsSource = _controller.GetAllOutbreaks(txtSearchOD.Text).DefaultView;
+		}
+
+		private void txtSearchOD_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			LoadOutbreaks();
+		}
+
+		// --- Xử lý địa chính (Tỉnh -> Huyện -> Xã) ---
+		private void cbTinhOD_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (cbTinhOD.SelectedValue is int id)
+			{
+				cbHuyenOD.ItemsSource = _adminController.GetAllHuyen(id).DefaultView;
+				cbXaOD.ItemsSource = null; // Reset xã
+			}
+		}
+
+		private void cbHuyenOD_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (cbHuyenOD.SelectedValue is int id)
+			{
+				cbXaOD.ItemsSource = _adminController.GetAllXa(id).DefaultView;
+			}
+		}
+
+		// --- Lưu Ổ Dịch ---
+		private void btnSaveOutbreak_Click(object sender, RoutedEventArgs e)
+		{
+			// Validate dữ liệu
+			if (cbXaOD.SelectedValue == null || cbBenhOD.SelectedValue == null || string.IsNullOrWhiteSpace(txtTenODich.Text))
+			{
+				MessageBox.Show("Vui lòng nhập tên ổ dịch, chọn bệnh và địa điểm (Xã)!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+				return;
+			}
+
+			try
+			{
+				int soLuong = 0;
+				int.TryParse(txtSoLuongOD.Text, out soLuong);
+
+				// Gọi Controller thêm mới
+				if (_controller.AddOutbreak(txtTenODich.Text,
+											(int)cbBenhOD.SelectedValue,
+											(int)cbXaOD.SelectedValue,
+											soLuong,
+											"", // Ghi chú (nếu có)
+											txtChanDoanOD.Text,
+											false))
+				{
+					MessageBox.Show("Thêm ổ dịch thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+
+					// 1. Refresh lưới hiển thị
+					LoadOutbreaks();
+
+					// 2. Refresh danh sách ổ dịch bên Tab Tiêm phòng (Để người dùng qua kia chọn được ngay)
+					LoadOutbreakComboBox();
+
+					// 3. Reset form
+					txtTenODich.Clear();
+					txtSoLuongOD.Clear();
+					txtChanDoanOD.Clear();
+					cbXaOD.SelectedIndex = -1;
+					cbHuyenOD.SelectedIndex = -1;
+					cbBenhOD.SelectedIndex = -1;
+				}
+				else
+				{
+					MessageBox.Show("Thêm thất bại. Vui lòng kiểm tra lại.", "Lỗi");
 				}
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("Lỗi hệ thống: " + ex.Message);
+				MessageBox.Show("Lỗi: " + ex.Message);
 			}
 		}
 
-		private void btnDelete_Click(object sender, RoutedEventArgs e)
+		// --- Xóa Ổ Dịch ---
+		private void btnDeleteOutbreak_Click(object sender, RoutedEventArgs e)
 		{
-			if (dgDisease.SelectedItem is ODichHienThi item)
+			if (sender is Button btn && btn.DataContext is DataRowView row)
 			{
-				if (MessageBox.Show($"Bạn có chắc muốn xóa ổ dịch {item.TenBenh} tại {item.TenDonVi}?",
-									"Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+				if (MessageBox.Show("Bạn có chắc chắn muốn xóa ổ dịch này?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
 				{
-					if (_controller.DeleteOutbreak(item.Id))
+					if (_controller.DeleteOutbreak((int)row["Id"]))
 					{
-						LoadData();
-						MessageBox.Show("Đã xóa ổ dịch.");
+						LoadOutbreaks();
+						// Refresh lại danh sách bên tab kia
+						LoadOutbreakComboBox();
 					}
 					else
 					{
-						MessageBox.Show("Không thể xóa ổ dịch này.");
+						MessageBox.Show("Không thể xóa. Có thể ổ dịch này đã có dữ liệu tiêm phòng.", "Lỗi");
 					}
 				}
 			}
 		}
 
-		private void btnMap_Click(object sender, RoutedEventArgs e)
+
+		// ============================================================
+		// TAB 2: QUẢN LÝ TIÊM PHÒNG
+		// ============================================================
+
+		private void LoadVaccinations()
 		{
+			dgVaccine.ItemsSource = _controller.GetVaccinations(txtSearchTP.Text).DefaultView;
+		}
+
+		private void txtSearchTP_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			LoadVaccinations();
+		}
+
+		// --- Lưu Đợt Tiêm Phòng ---
+		private void btnSaveVaccine_Click(object sender, RoutedEventArgs e)
+		{
+			// Validate
+			if (cbODichTP.SelectedValue == null || cbBenhTP.SelectedValue == null || string.IsNullOrEmpty(txtTenDotTP.Text))
+			{
+				MessageBox.Show("Vui lòng nhập Tên đợt, chọn Bệnh và Ổ Dịch cần tiêm!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+				return;
+			}
+
 			try
 			{
-				var mapData = _controller.GetMapData();
-				if (mapData.Count == 0)
+				int soLuong = 0;
+				if (!int.TryParse(txtSoLuongTP.Text, out soLuong))
 				{
-					MessageBox.Show("Hiện tại không có vùng dịch nào đang lây lan.", "An toàn");
+					MessageBox.Show("Số lượng phải là số nguyên!", "Cảnh báo");
 					return;
 				}
 
-				StringBuilder sb = new StringBuilder();
-				sb.AppendLine("⚠️ CẢNH BÁO CÁC VÙNG DỊCH ĐANG LÂY LAN:\n");
-				foreach (var point in mapData)
+				// SỬA LỖI: Đã xóa các ký tự lạ và format lại tham số
+				if (_controller.AddVaccination(txtTenDotTP.Text,
+											   (int)cbBenhTP.SelectedValue,
+											   (int)cbODichTP.SelectedValue,
+											   dpNgayTiem.SelectedDate ?? DateTime.Now,
+											   txtLoaiVaccine.Text,
+											   soLuong,
+											   txtNguoiTH.Text))
 				{
-					string icon = point.LevelColor == "Red" ? "🔴" : "🟡";
-					sb.AppendLine($"{icon} {point.TenDonVi}: {point.Info}");
+					MessageBox.Show("Thêm đợt tiêm phòng thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+					LoadVaccinations();
+
+					// Reset form
+					txtTenDotTP.Clear();
+					txtSoLuongTP.Clear();
+					txtLoaiVaccine.Clear();
+					txtNguoiTH.Clear();
+					cbODichTP.SelectedIndex = -1;
+					cbBenhTP.SelectedIndex = -1;
 				}
-				MessageBox.Show(sb.ToString(), "Bản đồ dịch bệnh", MessageBoxButton.OK, MessageBoxImage.Warning);
+				else
+				{
+					MessageBox.Show("Thêm thất bại.", "Lỗi");
+				}
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("Lỗi tải dữ liệu bản đồ: " + ex.Message);
+				MessageBox.Show("Lỗi: " + ex.Message);
 			}
 		}
 
-		private void btnAddDisease_Click(object sender, RoutedEventArgs e)
+		// --- Xóa Đợt Tiêm ---
+		private void btnDeleteVaccine_Click(object sender, RoutedEventArgs e)
 		{
-			AddDiseaseWindow addWin = new AddDiseaseWindow();
-			if (addWin.ShowDialog() == true)
+			if (sender is Button btn && btn.DataContext is DataRowView row)
 			{
-				try
+				if (MessageBox.Show("Xóa đợt tiêm phòng này?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
 				{
-					cbBenh.ItemsSource = _controller.GetLoaiBenh();
-					cbBenh.SelectedIndex = cbBenh.Items.Count - 1;
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show("Lỗi làm mới danh sách: " + ex.Message);
+					if (_controller.DeleteVaccination((int)row["Id"]))
+					{
+						LoadVaccinations();
+					}
 				}
 			}
-		}
-
-		private void ClearForm()
-		{
-			// Không reset cbTinh để tiện nhập tiếp
-			cbDonVi.SelectedIndex = -1;
-			cbBenh.SelectedIndex = -1;
-			txtSoLuong.Text = "";
-			txtNguyenNhan.Text = "";
-			chkVaccine.IsChecked = false;
 		}
 	}
 }

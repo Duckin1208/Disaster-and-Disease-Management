@@ -10,113 +10,179 @@ namespace Disease_Disaster.Controllers
 	public class DisasterController
 	{
 		private readonly DatabaseHelper _dbHelper = new DatabaseHelper();
-		//Phần 1 : Lẫy dữ liệu và tìm kiếm
-		// Lấy danh sách theo loại
-		public List<DiemThienTai> GetListByType(string typeName)
+
+		// 1. Lấy danh sách Loại thiên tai (Giữ DataTable cho ComboBox)
+		public DataTable GetDisasterTypes()
 		{
-			string query = "SELECT * FROM ViewDiemThienTai WHERE LoaiThienTai = @Loai";
-			SqlParameter[] param = { new SqlParameter("@Loai", typeName) };
-			return ParseList(query, param);
+			return _dbHelper.ExecuteQuery("SELECT Id, Ten FROM LoaiThienTai ORDER BY Ten");
 		}
 
-		// Tìm kiếm
-		public List<DiemThienTai> Search(string typeName, string keyword)
+		// 2. Lấy danh sách Điểm thiên tai (QUAN TRỌNG: Trả về List<DiemThienTai>)
+		// Trong file DisasterController.cs
+
+		public List<DiemThienTai> GetAllDisasters(string keyword = "")
 		{
-			string query = @"SELECT * FROM ViewDiemThienTai 
-                             WHERE LoaiThienTai = @Loai 
-                             AND (DonVi LIKE @Key OR Cap LIKE @Key)";
+			List<DiemThienTai> listResult = new List<DiemThienTai>();
 
-			SqlParameter[] param = {
-				new SqlParameter("@Loai", typeName),
-				new SqlParameter("@Key", "%" + keyword + "%")
-			};
-			return ParseList(query, param);
-		}
+			// Câu truy vấn
+			string query = @"SELECT * FROM ViewDiemThienTai WHERE 1=1";
+			keyword = keyword?.Trim();
 
-		//Phần 2 Quản lý thêm sửa xoá
-
-		public int Add(int donViId, string tenLoaiThienTai, int mucDo)
-		{
-			int loaiId = GetLoaiId(tenLoaiThienTai);
-			if (loaiId == -1) return -1;
-
-			// Dùng SCOPE_IDENTITY() để trả về ID vừa tạo (phục vụ upload file)
-			string query = @"INSERT INTO DiemThienTai (DonViId, LoaiThienTaiId, MucDo) 
-                             VALUES (@Dv, @Loai, @Muc);
-                             SELECT CAST(SCOPE_IDENTITY() as int);";
-
-			SqlParameter[] param = {
-				new SqlParameter("@Dv", donViId),
-				new SqlParameter("@Loai", loaiId),
-				new SqlParameter("@Muc", mucDo)
-			};
-
-			object result = _dbHelper.ExecuteScalar(query, param);
-			return result != null ? Convert.ToInt32(result) : -1;
-		}
-
-		public bool Update(int id, int donViId, int mucDo)
-		{
-			string query = "UPDATE DiemThienTai SET DonViId = @Dv, MucDo = @Muc WHERE Id = @Id";
-			SqlParameter[] param = {
-				new SqlParameter("@Dv", donViId),
-				new SqlParameter("@Muc", mucDo),
-				new SqlParameter("@Id", id)
-			};
-			return _dbHelper.ExecuteNonQuery(query, param) > 0;
-		}
-
-		public bool Delete(int id)
-		{
-			// 1. Xóa file đính kèm trước
-			FileAttachmentHelper.DeleteFile(id);
-
-			// 2. Xóa dữ liệu trong DB
-			string query = "DELETE FROM DiemThienTai WHERE Id = @Id";
-			return _dbHelper.ExecuteNonQuery(query, new SqlParameter[] { new SqlParameter("@Id", id) }) > 0;
-		}
-
-		// Helper: Upload file báo cáo
-		public void UploadReportFile(int disasterId, string sourcePath)
-		{
-			if (disasterId > 0 && !string.IsNullOrEmpty(sourcePath))
+			if (!string.IsNullOrEmpty(keyword))
 			{
-				FileAttachmentHelper.SaveFile(disasterId, sourcePath);
+				query += " AND (DonVi LIKE @Key OR Cap LIKE @Key OR LoaiThienTai LIKE @Key)";
 			}
-		}
 
-		// ---------------------------------------------------------
-		// CÁC HÀM HỖ TRỢ (PRIVATE / HELPER)
-		// ---------------------------------------------------------
+			query += " ORDER BY Id DESC";
 
-		private List<DiemThienTai> ParseList(string query, SqlParameter[] p)
-		{
-			List<DiemThienTai> list = new List<DiemThienTai>();
-			DataTable dt = _dbHelper.ExecuteQuery(query, p);
+			DataTable dt = _dbHelper.ExecuteQuery(query, new[] {
+		new SqlParameter("@Key", "%" + keyword + "%")
+	});
+
+			// Chuyển đổi DataTable sang List Object
 			foreach (DataRow row in dt.Rows)
 			{
-				int id = Convert.ToInt32(row["Id"]);
-				bool hasFile = FileAttachmentHelper.HasAttachment(id);
+				DiemThienTai item = new DiemThienTai();
 
-				list.Add(new DiemThienTai
+				// --- PHẦN SỬA QUAN TRỌNG: KIỂM TRA CỘT TRƯỚC KHI ĐỌC ---
+
+				// 1. Lấy ID (Bắt buộc phải có)
+				item.Id = Convert.ToInt32(row["Id"]);
+
+				// 2. Lấy DonViId (Nếu View thiếu cột này thì gán mặc định là 0 để không bị lỗi)
+				if (dt.Columns.Contains("DonViId") && row["DonViId"] != DBNull.Value)
+					item.DonViId = Convert.ToInt32(row["DonViId"]);
+				else
+					item.DonViId = 0; // Tránh crash
+
+				// 3. Lấy LoaiThienTaiId
+				if (dt.Columns.Contains("LoaiThienTaiId") && row["LoaiThienTaiId"] != DBNull.Value)
+					item.LoaiThienTaiId = Convert.ToInt32(row["LoaiThienTaiId"]);
+				else
+					item.LoaiThienTaiId = 0;
+
+				// 4. Lấy Mức Độ
+				if (dt.Columns.Contains("MucDo") && row["MucDo"] != DBNull.Value)
+					item.MucDo = Convert.ToInt32(row["MucDo"]);
+				else
+					item.MucDo = 1;
+
+				// --- CÁC CỘT HIỂN THỊ (STRING) ---
+				// Kiểm tra tên cột trong View của bạn là 'DonVi' hay 'TenDonVi'
+				if (dt.Columns.Contains("DonVi"))
+					item.TenDonVi = row["DonVi"].ToString();
+				else if (dt.Columns.Contains("TenDonVi"))
+					item.TenDonVi = row["TenDonVi"].ToString();
+
+				// Cấp hành chính
+				if (dt.Columns.Contains("Cap"))
+					item.CapHanhChinh = row["Cap"].ToString();
+
+				// Loại thiên tai
+				if (dt.Columns.Contains("LoaiThienTai"))
+					item.TenLoaiThienTai = row["LoaiThienTai"].ToString();
+				else if (dt.Columns.Contains("TenLoaiThienTai"))
+					item.TenLoaiThienTai = row["TenLoaiThienTai"].ToString();
+
+				// Ghi chú
+				if (dt.Columns.Contains("GhiChu") && row["GhiChu"] != DBNull.Value)
 				{
-					Id = id,
-					TenDonVi = row["DonVi"].ToString(),
-					CapHanhChinh = row["Cap"].ToString(),
+					item.Ten = row["GhiChu"].ToString(); // Hoặc gán vào thuộc tính GhiChu của model nếu có
+				}
 
-					TenLoaiThienTai = row["LoaiThienTai"].ToString(),
-					MucDo = Convert.ToInt32(row["MucDo"]),
-					TrangThaiFile = hasFile ? "Đã có file" : "Chưa có"
-				});
+				// Xử lý trạng thái File
+				bool hasFile = FileAttachmentHelper.HasAttachment(item.Id);
+				item.TrangThaiFile = hasFile ? "Có đính kèm" : "Không";
+
+				listResult.Add(item);
 			}
-			return list;
+
+			return listResult;
 		}
 
-		private int GetLoaiId(string tenLoai)
+		// 3. Thêm mới
+		public bool AddDisaster(int donViId, int loaiThienTaiId, int mucDo, string ghiChu, string filePath)
 		{
-			string query = "SELECT Id FROM LoaiThienTai WHERE Ten = @Ten";
-			object result = _dbHelper.ExecuteScalar(query, new[] { new SqlParameter("@Ten", tenLoai) });
-			return result != null ? Convert.ToInt32(result) : -1;
+			try
+			{
+				string query = @"INSERT INTO DiemThienTai (DonViId, LoaiThienTaiId, MucDo, GhiChu, NgayGhiNhan) 
+                                 VALUES (@Dv, @Loai, @Muc, @Note, GETDATE());
+                                 SELECT CAST(SCOPE_IDENTITY() as int);";
+
+				SqlParameter[] param = {
+					new SqlParameter("@Dv", donViId),
+					new SqlParameter("@Loai", loaiThienTaiId),
+					new SqlParameter("@Muc", mucDo),
+					new SqlParameter("@Note", ghiChu ?? (object)DBNull.Value)
+				};
+
+				object result = _dbHelper.ExecuteScalar(query, param);
+
+				if (result != null && int.TryParse(result.ToString(), out int newId))
+				{
+					if (!string.IsNullOrEmpty(filePath))
+					{
+						FileAttachmentHelper.SaveFile(newId, filePath);
+					}
+					return true;
+				}
+				return false;
+			}
+			catch { return false; }
+		}
+
+		// 4. Cập nhật
+		public bool UpdateDisaster(int id, int donViId, int loaiThienTaiId, int mucDo, string ghiChu, string filePath)
+		{
+			try
+			{
+				string query = @"UPDATE DiemThienTai 
+                                 SET DonViId = @Dv, LoaiThienTaiId = @Loai, MucDo = @Muc, GhiChu = @Note 
+                                 WHERE Id = @Id";
+
+				SqlParameter[] param = {
+					new SqlParameter("@Dv", donViId),
+					new SqlParameter("@Loai", loaiThienTaiId),
+					new SqlParameter("@Muc", mucDo),
+					new SqlParameter("@Note", ghiChu ?? (object)DBNull.Value),
+					new SqlParameter("@Id", id)
+				};
+
+				if (_dbHelper.ExecuteNonQuery(query, param) > 0)
+				{
+					if (!string.IsNullOrEmpty(filePath))
+					{
+						FileAttachmentHelper.SaveFile(id, filePath);
+					}
+					return true;
+				}
+				return false;
+			}
+			catch { return false; }
+		}
+
+		// 5. Xóa
+		public bool DeleteDisaster(int id)
+		{
+			try
+			{
+				string query = "DELETE FROM DiemThienTai WHERE Id = @Id";
+				bool dbDeleted = _dbHelper.ExecuteNonQuery(query, new[] { new SqlParameter("@Id", id) }) > 0;
+
+				if (dbDeleted)
+				{
+					FileAttachmentHelper.DeleteFile(id);
+					return true;
+				}
+				return false;
+			}
+			catch { return false; }
+		}
+
+		// 6. Mở file
+		public void OpenAttachment(int id)
+		{
+			FileAttachmentHelper.OpenFile(id);
 		}
 	}
 }

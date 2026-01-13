@@ -11,31 +11,40 @@ namespace Disease_Disaster.Models
 		// public string VatNuoi { get; set; } // Bỏ comment nếu DB có cột này
 	}
 
-	// 3.3 -> 3.6. Ổ Dịch (Model chính hiển thị)
-	public class ODichHienThi
+	// 3.3 -> 3.6. Ổ Dịch (Model chính hiển thị
+
+		// Model cho Ổ Dịch
+	public class ODichModel
+		{
+			public int Id { get; set; }
+			public string TenODich { get; set; } // [MỚI] Tên ổ dịch
+			public int DonViId { get; set; }
+			public string TenDonVi { get; set; }
+			public string TenBenh { get; set; }
+			public DateTime NgayPhatHien { get; set; }
+			public int SoLuongMacBenh { get; set; }
+			public string TrangThai { get; set; }
+			public string NguyenNhan { get; set; }
+			public string ChanDoan { get; set; }
+			public bool DaTiemPhong { get; set; }
+		}
+
+	// Model cho Tiêm Phòng [MỚI]
+	public class TiemPhongModel
 	{
 		public int Id { get; set; }
-		public int DonViId { get; set; }
-		public int LoaiDichBenhId { get; set; }
-
-		public string TenDonVi { get; set; }
-		public string CapHanhChinh { get; set; }
+		public string TenDotTiem { get; set; }
 		public string TenBenh { get; set; }
-
-		public DateTime NgayPhatHien { get; set; }
-		public int SoLuongMacBenh { get; set; }
-		public int SoLuongTieuHuy { get; set; }
-		public string TrangThai { get; set; }
-		public string NguyenNhan { get; set; }
-		public bool DaTiemPhong { get; set; }
-		public string GhiChu { get; set; }
-
-		// Thuộc tính hiển thị phụ trợ
-		public string NgayHienThi => NgayPhatHien.ToString("dd/MM/yyyy");
-		public string TrangThaiTiemPhong => DaTiemPhong ? "Đã tiêm bao vây" : "Chưa tiêm";
+		public string TenODich { get; set; } 
+		public int ODichId { get; set; } 
+		public DateTime NgayTiem { get; set; }
+		public string LoaiVaccine { get; set; }
+		public int SoLuong { get; set; }
+		public string NguoiThucHien { get; set; }
 	}
 
-	// 3.7. Dữ liệu bản đồ (Sửa lại class này để khớp với Controller)
+
+	
 	public class MapDataPoint
 	{
 		public string TenDonVi { get; set; }
@@ -43,7 +52,7 @@ namespace Disease_Disaster.Models
 
 		public string TenLoaiDichBenh { get; set; }
 
-		public string LevelColor { get; set; } // Màu sắc cảnh báo (Red/Yellow)
-		public string Info { get; set; }       // Thông tin hiển thị (Tooltip)
+		public string LevelColor { get; set; } 
+		public string Info { get; set; } 
 	}
 }

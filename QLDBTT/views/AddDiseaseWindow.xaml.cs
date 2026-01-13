@@ -1,36 +1,37 @@
 ﻿using System.Windows;
-using Disease_Disaster.Controllers;
 
 namespace Disease_Disaster.Views
 {
-	public partial class AddDiseaseWindow : Window
+	public partial class AddDiseaseTypeWindow : Window
 	{
-		private readonly DiseaseController _controller = new DiseaseController();
+		public string TenBenh { get; private set; }
+		public string MoTa { get; private set; }
 
-		public AddDiseaseWindow()
+		public AddDiseaseTypeWindow()
 		{
 			InitializeComponent();
-			txtTen.Focus(); // Tự động trỏ chuột vào ô nhập tên
+			txtTenBenh.Focus();
 		}
 
 		private void btnSave_Click(object sender, RoutedEventArgs e)
 		{
-			if (string.IsNullOrWhiteSpace(txtTen.Text))
+			if (string.IsNullOrWhiteSpace(txtTenBenh.Text))
 			{
-				MessageBox.Show("Vui lòng nhập tên dịch bệnh!");
+				MessageBox.Show("Vui lòng nhập tên bệnh!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
 				return;
 			}
 
-			if (_controller.AddLoaiBenh(txtTen.Text.Trim(), txtMoTa.Text.Trim()))
-			{
-				MessageBox.Show("Thêm thành công!");
-				DialogResult = true; // Báo cho cửa sổ cha biết là đã thêm xong
-				Close();
-			}
-			else
-			{
-				MessageBox.Show("Lỗi: Có thể tên bệnh đã tồn tại.");
-			}
+			TenBenh = txtTenBenh.Text.Trim();
+			MoTa = txtMoTa.Text.Trim();
+
+			this.DialogResult = true; // Đánh dấu là người dùng ấn Lưu
+			this.Close();
+		}
+
+		private void btnCancel_Click(object sender, RoutedEventArgs e)
+		{
+			this.DialogResult = false;
+			this.Close();
 		}
 	}
 }

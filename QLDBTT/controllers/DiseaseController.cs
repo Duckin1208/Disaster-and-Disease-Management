@@ -3,135 +3,230 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Disease_Disaster.Helpers;
-using Disease_Disaster.Models;
+// If you moved MapDataPoint to the Models folder, uncomment the next line:
+// using Disease_Disaster.Models; 
 
 namespace Disease_Disaster.Controllers
 {
+	// --- 1. MODEL CHO BẢN ĐỒ (Nếu chưa có file riêng thì để ở đây) ---
+	public class MapDataPoint
+	{
+		public string TenDonVi { get; set; }        // Tên địa điểm (Hà Nội, Ba Vì...)
+		public string TenLoaiDichBenh { get; set; } // Tên bệnh
+		public int SoLuong { get; set; }            // Số ca mắc
+		public string LevelColor { get; set; }      // Mã màu (Red, Orange, Yellow, Green)
+		public string Info { get; set; }            // Thông tin hiển thị (Tooltip)
+	}
+
 	public class DiseaseController
 	{
 		private readonly DatabaseHelper _dbHelper = new DatabaseHelper();
 
-		//Phần 1 Quản lý ổ dịch
-		// Lấy danh sách ổ dịch (Hỗ trợ tìm kiếm theo từ khóa)
-		public List<ODichHienThi> GetOutbreaks(string keyword = "")
+		// ============================================================
+		// PHẦN 1: QUẢN LÝ DANH MỤC BỆNH
+		// ============================================================
+
+		// Lấy danh sách Loại bệnh (Cho ComboBox)
+		public DataTable GetDiseaseTypes()
 		{
-			// Sử dụng ViewODich mới đã cập nhật trong SQL
-			string query = @"SELECT * FROM ViewODich 
-                             WHERE TenDonVi LIKE @Key OR TenBenh LIKE @Key OR TrangThai LIKE @Key 
-                             ORDER BY NgayPhatHien DESC";
+			return _dbHelper.ExecuteQuery("SELECT Id, Ten FROM LoaiDichBenh ORDER BY Ten");
+		}
 
-			var param = new SqlParameter[] { new SqlParameter("@Key", "%" + keyword + "%") };
-
-			var list = new List<ODichHienThi>();
-			DataTable dt = _dbHelper.ExecuteQuery(query, param);
-
-			foreach (DataRow row in dt.Rows)
+		// Thêm loại bệnh mới (Có kiểm tra trùng lặp)
+		public bool AddDiseaseType(string ten, string moTa)
+		{
+			try
 			{
-				list.Add(new ODichHienThi
-				{
-					Id = Convert.ToInt32(row["Id"]),
-					DonViId = Convert.ToInt32(row["DonViId"]),
-					TenDonVi = row["TenDonVi"].ToString(),
-					CapHanhChinh = row["CapHanhChinh"].ToString(),
+				// Kiểm tra trùng tên
+				string checkQuery = "SELECT COUNT(*) FROM LoaiDichBenh WHERE Ten = @Ten";
+				int count = 0;
+				object result = _dbHelper.ExecuteScalar(checkQuery, new[] { new SqlParameter("@Ten", ten) });
 
-					LoaiDichBenhId = Convert.ToInt32(row["LoaiDichBenhId"]),
-					TenBenh = row["TenBenh"].ToString(),
+				if (result != null) int.TryParse(result.ToString(), out count);
 
-					// Xử lý các trường mới cập nhật
-					NgayPhatHien = row["NgayPhatHien"] != DBNull.Value ? Convert.ToDateTime(row["NgayPhatHien"]) : DateTime.Now,
-					SoLuongMacBenh = row["SoLuongMacBenh"] != DBNull.Value ? Convert.ToInt32(row["SoLuongMacBenh"]) : 0,
-					SoLuongTieuHuy = row["SoLuongTieuHuy"] != DBNull.Value ? Convert.ToInt32(row["SoLuongTieuHuy"]) : 0,
-					TrangThai = row["TrangThai"].ToString(),
-					NguyenNhan = row["NguyenNhan"].ToString(), // (Req 3.4) Chẩn đoán
-					DaTiemPhong = row["DaTiemPhong"] != DBNull.Value && Convert.ToBoolean(row["DaTiemPhong"]), // (Req 3.6) Tiêm phòng
-					GhiChu = row["GhiChu"].ToString()
-				});
+				if (count > 0) return false; // Đã tồn tại
+
+				// Thêm mới
+				string query = "INSERT INTO LoaiDichBenh (Ten, MoTa) VALUES (@Ten, @MoTa)";
+				SqlParameter[] param = {
+					new SqlParameter("@Ten", ten),
+					new SqlParameter("@MoTa", moTa ?? (object)DBNull.Value)
+				};
+				return _dbHelper.ExecuteNonQuery(query, param) > 0;
 			}
-			return list;
+			catch { return false; }
+		}
+
+		// ============================================================
+		// PHẦN 2: QUẢN LÝ Ổ DỊCH
+		// ============================================================
+
+		// Lấy danh sách ổ dịch (Hỗ trợ tìm kiếm)
+		public DataTable GetAllOutbreaks(string keyword = "")
+		{
+			// Lấy dữ liệu từ ViewODich (Đã Join sẵn các bảng)
+			string query = @"SELECT Id, TenODich, TenBenh, TenDonVi, NgayPhatHien, SoLuongMacBenh, 
+                                    TrangThai, DaTiemPhong, ChanDoan 
+                             FROM ViewODich WHERE 1=1";
+
+			if (!string.IsNullOrEmpty(keyword))
+			{
+				query += " AND (TenBenh LIKE @Key OR TenDonVi LIKE @Key OR TenODich LIKE @Key)";
+			}
+
+			query += " ORDER BY NgayPhatHien DESC";
+
+			return _dbHelper.ExecuteQuery(query, new[] {
+				new SqlParameter("@Key", "%" + keyword + "%")
+			});
+		}
+
+		// Lấy danh sách ổ dịch đơn giản (Chỉ ID và Tên) để nạp ComboBox bên Tiêm phòng
+		public DataTable GetOutbreakList()
+		{
+			return _dbHelper.ExecuteQuery("SELECT Id, TenODich FROM ODich ORDER BY Id DESC");
 		}
 
 		// Thêm ổ dịch mới
-		public bool AddOutbreak(int donViId, int loaiBenhId, DateTime ngayPhatHien, int soLuong, string nguyenNhan, bool daTiem)
+		public bool AddOutbreak(string tenODich, int loaiBenhId, int donViId, int soLuong, string nguyenNhan, string chanDoan, bool daTiem)
 		{
-			string query = @"INSERT INTO ODich (DonViId, LoaiDichBenhId, NgayPhatHien, SoLuongMacBenh, TrangThai, NguyenNhan, DaTiemPhong)
-                             VALUES (@Dv, @Lb, @Ngay, @Sl, N'Đang lây lan', @NguyenNhan, @DaTiem)";
+			try
+			{
+				string query = @"INSERT INTO ODich (TenODich, LoaiDichBenhId, DonViId, SoLuongMacBenh, NguyenNhan, ChanDoan, DaTiemPhong, NgayPhatHien, TrangThai) 
+                                 VALUES (@Ten, @Loai, @DonVi, @SL, @NN, @CD, @TP, GETDATE(), N'Đang xử lý')";
 
-			SqlParameter[] p = {
-				new SqlParameter("@Dv", donViId),
-				new SqlParameter("@Lb", loaiBenhId),
-				new SqlParameter("@Ngay", ngayPhatHien),
-				new SqlParameter("@Sl", soLuong),
-				new SqlParameter("@NguyenNhan", nguyenNhan),
-				new SqlParameter("@DaTiem", daTiem)
-			};
-			return _dbHelper.ExecuteNonQuery(query, p) > 0;
+				SqlParameter[] param = {
+					new SqlParameter("@Ten", tenODich),
+					new SqlParameter("@Loai", loaiBenhId),
+					new SqlParameter("@DonVi", donViId),
+					new SqlParameter("@SL", soLuong),
+					new SqlParameter("@NN", nguyenNhan ?? (object)DBNull.Value),
+					new SqlParameter("@CD", chanDoan ?? (object)DBNull.Value),
+					new SqlParameter("@TP", daTiem)
+				};
+				return _dbHelper.ExecuteNonQuery(query, param) > 0;
+			}
+			catch { return false; }
 		}
 
 		// Xóa ổ dịch
 		public bool DeleteOutbreak(int id)
 		{
-			return _dbHelper.ExecuteNonQuery("DELETE FROM ODich WHERE Id = " + id) > 0;
+			return _dbHelper.ExecuteNonQuery("DELETE FROM ODich WHERE Id = @Id", new[] {
+				new SqlParameter("@Id", id)
+			}) > 0;
 		}
 
-		//Phần 2 Danh mục dịch bệnh và Triệu chứng
-		// Lấy danh sách loại bệnh (Cho ComboBox)
-		public List<LoaiDichBenh> GetLoaiBenh()
+		// ============================================================
+		// PHẦN 3: QUẢN LÝ TIÊM PHÒNG (GẮN VỚI Ổ DỊCH)
+		// ============================================================
+
+		// Lấy danh sách đợt tiêm phòng
+		public DataTable GetVaccinations(string keyword = "")
 		{
-			var list = new List<LoaiDichBenh>();
-			DataTable dt = _dbHelper.ExecuteQuery("SELECT * FROM LoaiDichBenh");
-			foreach (DataRow row in dt.Rows)
+			string query = @"SELECT Id, TenDotTiem, TenBenh, TenODich, NgayTiem, LoaiVaccine, SoLuong, NguoiThucHien 
+                             FROM ViewTiemPhong WHERE 1=1";
+
+			if (!string.IsNullOrEmpty(keyword))
 			{
-				list.Add(new LoaiDichBenh
-				{
-					Id = Convert.ToInt32(row["Id"]),
-					Ten = row["Ten"].ToString(),
-					MoTa = row["MoTa"].ToString()
-					// VatNuoi = row["VatNuoi"].ToString() (Bỏ comment nếu cần)
-				});
+				query += " AND (TenDotTiem LIKE @Key OR TenODich LIKE @Key)";
 			}
-			return list;
+
+			query += " ORDER BY NgayTiem DESC";
+
+			return _dbHelper.ExecuteQuery(query, new[] {
+				new SqlParameter("@Key", "%" + keyword + "%")
+			});
 		}
-		//Thêm loại dịch bệnh
-		public bool AddLoaiBenh(string ten, string moTa)
+
+		// Thêm đợt tiêm phòng mới
+		public bool AddVaccination(string tenDot, int loaiBenhId, int oDichId, DateTime ngayTiem, string vaccine, int soLuong, string nguoiTH)
 		{
 			try
 			{
-				string query = "INSERT INTO LoaiDichBenh (Ten, MoTa) VALUES (@Ten, @MoTa)";
-				return _dbHelper.ExecuteNonQuery(query, new[] {
-			new SqlParameter("@Ten", ten),
-			new SqlParameter("@MoTa", moTa ?? "") // Nếu mô tả null thì để trống
-        }) > 0;
-			}
-			catch
-			{
-				return false;
-			}
-		}
-		// =============================================================
-		// PHẦN 3: BẢN ĐỒ (3.7)
-		// =============================================================
+				string query = @"INSERT INTO TiemPhong (TenDotTiem, LoaiDichBenhId, ODichId, NgayTiem, LoaiVaccine, SoLuong, NguoiThucHien) 
+                                 VALUES (@Ten, @Loai, @ODich, @Ngay, @Vac, @SL, @Nguoi)";
 
+				SqlParameter[] param = {
+					new SqlParameter("@Ten", tenDot),
+					new SqlParameter("@Loai", loaiBenhId),
+					new SqlParameter("@ODich", oDichId),
+					new SqlParameter("@Ngay", ngayTiem),
+					new SqlParameter("@Vac", vaccine),
+					new SqlParameter("@SL", soLuong),
+					new SqlParameter("@Nguoi", nguoiTH ?? (object)DBNull.Value)
+				};
+				return _dbHelper.ExecuteNonQuery(query, param) > 0;
+			}
+			catch { return false; }
+		}
+
+		// Xóa đợt tiêm phòng
+		public bool DeleteVaccination(int id)
+		{
+			return _dbHelper.ExecuteNonQuery("DELETE FROM TiemPhong WHERE Id = @Id", new[] {
+				new SqlParameter("@Id", id)
+			}) > 0;
+		}
+
+		// ============================================================
+		// PHẦN 4: DỮ LIỆU BẢN ĐỒ (GET MAP DATA)
+		// ============================================================
+
+		// Hàm trả về List MapDataPoint để vẽ lên bản đồ hoặc hiển thị cảnh báo
 		public List<MapDataPoint> GetMapData()
 		{
-			// Lấy dữ liệu tổng hợp từ ViewODich để vẽ bản đồ
-			// Chỉ lấy những ổ dịch đang lây lan để cảnh báo
-			string query = "SELECT TenDonVi, TenBenh, SoLuongMacBenh, TrangThai FROM ViewODich WHERE TrangThai = N'Đang lây lan'";
+			List<MapDataPoint> mapPoints = new List<MapDataPoint>();
 
-			var list = new List<MapDataPoint>();
-			DataTable dt = _dbHelper.ExecuteQuery(query);
+			// Lấy toàn bộ dữ liệu ổ dịch
+			DataTable dt = GetAllOutbreaks("");
 
 			foreach (DataRow row in dt.Rows)
 			{
-				list.Add(new MapDataPoint
+				MapDataPoint point = new MapDataPoint();
+
+				// 1. Lấy thông tin cơ bản từ View
+				// Lưu ý: Cần chắc chắn ViewODich có cột TenDonVi, TenBenh, SoLuongMacBenh
+				point.TenDonVi = row["TenDonVi"].ToString();
+				point.TenLoaiDichBenh = row["TenBenh"].ToString();
+
+				int sl = 0;
+				if (row["SoLuongMacBenh"] != DBNull.Value)
+					int.TryParse(row["SoLuongMacBenh"].ToString(), out sl);
+				point.SoLuong = sl;
+
+				// 2. Logic Phân Màu Cảnh Báo
+				if (sl >= 100)
 				{
-					TenDonVi = row["TenDonVi"].ToString(),
-					TenLoaiDichBenh = row["TenBenh"].ToString(),
-					// Logic màu: Nếu > 100 con thì báo Đỏ, ngược lại báo Vàng
-					LevelColor = Convert.ToInt32(row["SoLuongMacBenh"]) > 100 ? "Red" : "Yellow",
-					Info = $"{row["TenBenh"]} - {row["SoLuongMacBenh"]} con mắc bệnh"
-				});
+					point.LevelColor = "#E74C3C"; // Đỏ (Rất nguy hiểm)
+				}
+				else if (sl >= 50)
+				{
+					point.LevelColor = "#E67E22"; // Cam (Nguy hiểm)
+				}
+				else if (sl >= 10)
+				{
+					point.LevelColor = "#F1C40F"; // Vàng (Cảnh báo)
+				}
+				else
+				{
+					point.LevelColor = "#2ECC71"; // Xanh lá (An toàn/Nhẹ)
+				}
+
+				// 3. Tạo thông tin Tooltip
+				string ngayPH = row["NgayPhatHien"] != DBNull.Value
+								? Convert.ToDateTime(row["NgayPhatHien"]).ToString("dd/MM/yyyy")
+								: "N/A";
+
+				point.Info = $"📍 Địa điểm: {point.TenDonVi}\n" +
+							 $"🦠 Bệnh: {point.TenLoaiDichBenh}\n" +
+							 $"⚠️ Số ca: {sl:N0}\n" +
+							 $"📅 Ngày phát hiện: {ngayPH}";
+
+				mapPoints.Add(point);
 			}
-			return list;
+
+			return mapPoints;
 		}
 	}
 }

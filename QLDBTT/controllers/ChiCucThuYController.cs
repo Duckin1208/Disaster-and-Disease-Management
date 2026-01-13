@@ -10,12 +10,6 @@ namespace Disease_Disaster.Controllers
 	public class ChiCucController
 	{
 		private readonly DatabaseHelper _dbHelper = new DatabaseHelper();
-
-		// ==========================================
-		// PHẦN 1: QUẢN LÝ THÔNG TIN CHI CỤC (CRUD)
-		// ==========================================
-
-		// 1. Lấy danh sách (Trả về DataTable để bind vào DataGrid dễ dàng)
 		public DataTable GetAllChiCuc()
 		{
 			return _dbHelper.ExecuteQuery("SELECT * FROM ChiCucThuy");
@@ -69,11 +63,6 @@ namespace Disease_Disaster.Controllers
 				return false;
 			}
 		}
-
-		// ==========================================
-		// PHẦN 2: QUẢN LÝ ĐỊA BÀN (TỈNH/THÀNH)
-		// (Dùng cho giao diện ChiCucManagementView)
-		// ==========================================
 
 		// Lấy danh sách Tỉnh/Thành thuộc 1 Chi cục cụ thể
 		public DataTable GetProvincesByChiCuc(int chiCucId)
