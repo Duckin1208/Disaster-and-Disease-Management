@@ -14,7 +14,7 @@
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 
-		<TextBlock Text="QUẢN LÝ THIÊN TAI" FontSize="24" FontWeight="Bold" Foreground="#D35400" Margin="0,0,0,20"/>
+		<TextBlock Text="QUẢN LÝ THIÊN TAI &amp; BÁO CÁO" FontSize="24" FontWeight="Bold" Foreground="#D35400" Margin="0,0,0,20"/>
 
 		<Border Grid.Row="1" BorderBrush="#DDD" BorderThickness="1" Padding="10" Background="#FEF9E7" Margin="0,0,0,15" CornerRadius="4">
 			<StackPanel Orientation="Horizontal">
@@ -27,18 +27,21 @@
 
 		<DataGrid x:Name="dgDisasters" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True" 
                   BorderBrush="#CCC" BorderThickness="1" RowHeight="40" SelectionMode="Single"
-                  CanUserAddRows="False">
+                  CanUserAddRows="False" AlternatingRowBackground="#FDF2E9">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+
 				<DataGridTextColumn Header="Địa Điểm" Binding="{Binding TenDonVi}" Width="200" FontWeight="Bold"/>
 				<DataGridTextColumn Header="Cấp" Binding="{Binding CapHanhChinh}" Width="100"/>
 				<DataGridTextColumn Header="Loại Thiên Tai" Binding="{Binding TenLoaiThienTai}" Width="150" Foreground="#D35400"/>
+				<DataGridTextColumn Header="Mức Độ" Binding="{Binding MucDo}" Width="60"/>
 
-				<DataGridTextColumn Header="Mức Độ" Binding="{Binding MucDo}" Width="80"/>
+				<DataGridTextColumn Header="Ghi Chú" Binding="{Binding GhiChu}" Width="200" FontStyle="Italic"/>
+				<DataGridTextColumn Header="Ngày Ghi Nhận" Binding="{Binding NgayGhiNhan, StringFormat=dd/MM/yyyy}" Width="100"/>
 
-				<DataGridTextColumn Header="File đính kèm" Binding="{Binding TrangThaiFile}" Width="120" IsReadOnly="True"/>
+				<DataGridTextColumn Header="File đính kèm" Binding="{Binding TrangThaiFile}" Width="100" IsReadOnly="True"/>
 
-				<DataGridTemplateColumn Header="Tác vụ File" Width="100">
+				<DataGridTemplateColumn Header="Tác vụ File" Width="90">
 					<DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<Button Content="📄 Xem" Height="25" Width="60" Background="#3498DB" Foreground="White" 
@@ -48,7 +51,7 @@
 					</DataGridTemplateColumn.CellTemplate>
 				</DataGridTemplateColumn>
 
-				<DataGridTemplateColumn Header="Xóa" Width="80">
+				<DataGridTemplateColumn Header="Xóa" Width="60">
 					<DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<Button Content="❌" Height="25" Width="40" Background="#E74C3C" Foreground="White" 
@@ -66,42 +69,51 @@
 					<ColumnDefinition Width="*"/>
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="120"/>
+					<ColumnDefinition Width="140"/>
 				</Grid.ColumnDefinitions>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
 				</Grid.RowDefinitions>
 
-				<Label Content="Đơn vị:" Grid.Row="0" Grid.Column="0" Foreground="Black" FontWeight="Normal"/>
-				<ComboBox x:Name="cbDonVi" Grid.Row="0" Grid.Column="1" Height="30" Margin="5" 
-                          DisplayMemberPath="Ten" SelectedValuePath="Id" ToolTip="Chọn đơn vị bị thiên tai"/>
+				<Label Content="Tỉnh/TP:" Grid.Row="0" Grid.Column="0" Foreground="Black" FontWeight="Normal" VerticalAlignment="Center"/>
+				<ComboBox x:Name="cbTinh" Grid.Row="0" Grid.Column="1" Height="30" Margin="5" 
+                          DisplayMemberPath="Ten" SelectedValuePath="Id" SelectionChanged="cbTinh_SelectionChanged"/>
 
-				<Label Content="Loại thiên tai:" Grid.Row="0" Grid.Column="2" Foreground="Black" FontWeight="Normal"/>
-				<ComboBox x:Name="cbLoai" Grid.Row="0" Grid.Column="3" Height="30" Margin="5" 
+				<Label Content="Quận/Huyện:" Grid.Row="0" Grid.Column="2" Foreground="Black" FontWeight="Normal" VerticalAlignment="Center"/>
+				<ComboBox x:Name="cbHuyen" Grid.Row="0" Grid.Column="3" Height="30" Margin="5" 
+                          DisplayMemberPath="Ten" SelectedValuePath="Id" SelectionChanged="cbHuyen_SelectionChanged" IsEnabled="False"/>
+
+				<Label Content="Phường/Xã:" Grid.Row="1" Grid.Column="0" Foreground="Black" FontWeight="Normal" VerticalAlignment="Center"/>
+				<ComboBox x:Name="cbXa" Grid.Row="1" Grid.Column="1" Height="30" Margin="5" 
+                          DisplayMemberPath="Ten" SelectedValuePath="Id" IsEnabled="False" ToolTip="Đây là đơn vị sẽ được lưu"/>
+
+				<Label Content="Loại thiên tai:" Grid.Row="1" Grid.Column="2" Foreground="Black" FontWeight="Normal" VerticalAlignment="Center"/>
+				<ComboBox x:Name="cbLoai" Grid.Row="1" Grid.Column="3" Height="30" Margin="5" 
                           DisplayMemberPath="Ten" SelectedValuePath="Id"/>
 
-				<Label Content="Mức độ:" Grid.Row="1" Grid.Column="0" Foreground="Black" FontWeight="Normal"/>
-				<ComboBox x:Name="cbMucDo" Grid.Row="1" Grid.Column="1" Height="30" Margin="5">
-					<ComboBoxItem Content="1" Tag="1"/>
-					<ComboBoxItem Content="2" Tag="2"/>
-					<ComboBoxItem Content="3" Tag="3"/>
-					<ComboBoxItem Content="4" Tag="4"/>
-					<ComboBoxItem Content="5" Tag="5"/>
+				<Label Content="Mức độ:" Grid.Row="2" Grid.Column="0" Foreground="Black" FontWeight="Normal" VerticalAlignment="Center"/>
+				<ComboBox x:Name="cbMucDo" Grid.Row="2" Grid.Column="1" Height="30" Margin="5">
+					<ComboBoxItem Content="1 - Rất nhẹ" Tag="1"/>
+					<ComboBoxItem Content="2 - Nhẹ" Tag="2"/>
+					<ComboBoxItem Content="3 - Trung bình" Tag="3"/>
+					<ComboBoxItem Content="4 - Nặng" Tag="4"/>
+					<ComboBoxItem Content="5 - Rất nặng" Tag="5"/>
 				</ComboBox>
 
-				<Label Content="Ghi chú:" Grid.Row="1" Grid.Column="2" Foreground="Black" FontWeight="Normal"/>
-				<TextBox x:Name="txtGhiChu" Grid.Row="1" Grid.Column="3" Height="30" Margin="5" VerticalContentAlignment="Center"/>
+				<Label Content="Ghi chú:" Grid.Row="2" Grid.Column="2" Foreground="Black" FontWeight="Normal" VerticalAlignment="Center"/>
+				<TextBox x:Name="txtGhiChu" Grid.Row="2" Grid.Column="3" Height="30" Margin="5" VerticalContentAlignment="Center"/>
 
-				<Label Content="File báo cáo:" Grid.Row="2" Grid.Column="0" Foreground="Black" FontWeight="Normal"/>
-				<DockPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="5">
-					<Button Content="Chọn File..." Width="80" DockPanel.Dock="Right" Click="btnBrowseFile_Click" Background="#BDC3C7"/>
-					<TextBox x:Name="txtFilePath" Height="30" IsReadOnly="True" Background="#F2F3F4" VerticalContentAlignment="Center"/>
+				<Label Content="File báo cáo:" Grid.Row="3" Grid.Column="0" Foreground="Black" FontWeight="Normal" VerticalAlignment="Center"/>
+				<DockPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="5">
+					<Button Content="Chọn File..." Width="90" DockPanel.Dock="Right" Click="btnBrowseFile_Click" Background="#BDC3C7"/>
+					<TextBox x:Name="txtFilePath" Height="30" IsReadOnly="True" Background="#F2F3F4" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
 				</DockPanel>
 
-				<Button Content="LƯU DỮ LIỆU" Grid.Row="0" Grid.RowSpan="3" Grid.Column="4" 
-                        Height="90" Margin="10,5,0,5" Background="#D35400" Foreground="White" FontSize="14" Click="btnAdd_Click"/>
+				<Button Content="LƯU DỮ LIỆU" Grid.Row="0" Grid.RowSpan="4" Grid.Column="4" 
+                        Height="Auto" Margin="10,5,0,5" Background="#D35400" Foreground="White" FontSize="14" FontWeight="Bold" Click="btnAdd_Click"/>
 			</Grid>
 		</GroupBox>
 	</Grid>

@@ -231,13 +231,29 @@ CREATE TABLE DiemThienTai (
     DonViId int not null, 
     LoaiThienTaiId int not null, 
     MucDo int not null,
+    GhiChu nvarchar(MAX),               
+    NgayGhiNhan datetime DEFAULT GETDATE(), 
+    FileDinhKem nvarchar(500),           
+    -- ---------------------------
+
     constraint FK_DiemThienTai_DonVi foreign key (DonViId) references DonVi(Id),
     constraint FK_DiemThienTai_LoaiThienTai foreign key (LoaiThienTaiId) references LoaiThienTai(Id)
 );
 GO
-
 CREATE VIEW ViewDiemThienTai AS
-SELECT dtt.Id, dv.Ten as DonVi, hc.Ten as Cap, ltt.Ten as LoaiThienTai, dtt.MucDo
+SELECT 
+    dtt.Id, 
+    dtt.Ten,                   
+    dv.Ten as DonVi, 
+    dtt.DonViId,                 
+    hc.Ten as Cap, 
+    ltt.Ten as LoaiThienTai, 
+    dtt.LoaiThienTaiId,          
+    dtt.MucDo,
+    dtt.GhiChu,
+    dtt.NgayGhiNhan,
+    dtt.FileDinhKem
+    -- ------------------------------------
 FROM DiemThienTai dtt
 JOIN DonVi dv ON dtt.DonViId = dv.Id
 JOIN HanhChinh hc ON dv.HanhChinhId = hc.Id
