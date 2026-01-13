@@ -10,7 +10,6 @@ namespace Disease_Disaster.Models
 	}
 
 	// 2. Model hiển thị danh sách cơ sở (Map với ViewCoSoFull)
-	// Class này khớp với Controller: GetFacilitiesByType
 	public class CoSoHienThi
 	{
 		// Thông tin chính

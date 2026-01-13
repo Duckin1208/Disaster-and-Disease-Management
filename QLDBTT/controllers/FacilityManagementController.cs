@@ -148,9 +148,6 @@ namespace Disease_Disaster.Controllers
 			}
 		}
 
-		// 5. CÁC HÀM BỔ SUNG (Nằm bên trong Class)
-		// [SỬA LỖI 2]: Đã di chuyển các hàm này vào bên trong dấu ngoặc nhọn của Class
-
 		public List<ChiCucThuy> GetAllChiCuc()
 		{
 			var list = new List<ChiCucThuy>();
@@ -183,7 +180,6 @@ namespace Disease_Disaster.Controllers
 						NgayCap = Convert.ToDateTime(row["NgayCap"]),
 						NgayHetHan = Convert.ToDateTime(row["NgayHetHan"]),
 						CoSoId = Convert.ToInt32(row["CoSoId"]),
-						// Model GiayPhep cần có property TrangThai (logic tính toán)
 					});
 				}
 			}

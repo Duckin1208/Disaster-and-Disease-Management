@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Disease_Disaster.Helpers;
-// If you moved MapDataPoint to the Models folder, uncomment the next line:
-// using Disease_Disaster.Models; 
 
 namespace Disease_Disaster.Controllers
 {
-	// --- 1. MODEL CHO BẢN ĐỒ (Nếu chưa có file riêng thì để ở đây) ---
 	public class MapDataPoint
 	{
 		public string TenDonVi { get; set; }        // Tên địa điểm (Hà Nội, Ba Vì...)
@@ -21,10 +18,6 @@ namespace Disease_Disaster.Controllers
 	public class DiseaseController
 	{
 		private readonly DatabaseHelper _dbHelper = new DatabaseHelper();
-
-		// ============================================================
-		// PHẦN 1: QUẢN LÝ DANH MỤC BỆNH
-		// ============================================================
 
 		// Lấy danh sách Loại bệnh (Cho ComboBox)
 		public DataTable GetDiseaseTypes()
@@ -57,9 +50,6 @@ namespace Disease_Disaster.Controllers
 			catch { return false; }
 		}
 
-		// ============================================================
-		// PHẦN 2: QUẢN LÝ Ổ DỊCH
-		// ============================================================
 
 		// Lấy danh sách ổ dịch (Hỗ trợ tìm kiếm)
 		public DataTable GetAllOutbreaks(string keyword = "")
@@ -117,10 +107,6 @@ namespace Disease_Disaster.Controllers
 			}) > 0;
 		}
 
-		// ============================================================
-		// PHẦN 3: QUẢN LÝ TIÊM PHÒNG (GẮN VỚI Ổ DỊCH)
-		// ============================================================
-
 		// Lấy danh sách đợt tiêm phòng
 		public DataTable GetVaccinations(string keyword = "")
 		{
@@ -168,12 +154,6 @@ namespace Disease_Disaster.Controllers
 				new SqlParameter("@Id", id)
 			}) > 0;
 		}
-
-		// ============================================================
-		// PHẦN 4: DỮ LIỆU BẢN ĐỒ (GET MAP DATA)
-		// ============================================================
-
-		// Hàm trả về List MapDataPoint để vẽ lên bản đồ hoặc hiển thị cảnh báo
 		public List<MapDataPoint> GetMapData()
 		{
 			List<MapDataPoint> mapPoints = new List<MapDataPoint>();

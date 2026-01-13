@@ -15,14 +15,10 @@ namespace Disease_Disaster.Views
 		public DiseaseManagementView()
 		{
 			InitializeComponent();
-
-			// Load toàn bộ dữ liệu ban đầu
 			LoadInitData();
 			LoadOutbreaks();     // Load danh sách ổ dịch lên lưới
 			LoadVaccinations();  // Load danh sách tiêm phòng lên lưới
 		}
-
-		// --- 1. KHỞI TẠO DỮ LIỆU CHUNG ---
 		private void LoadInitData()
 		{
 			try
@@ -68,8 +64,6 @@ namespace Disease_Disaster.Views
 				cbODichTP.ItemsSource = dtOdich.DefaultView;
 			}
 		}
-
-		// --- 2. SỰ KIỆN THÊM LOẠI BỆNH MỚI (NÚT +) ---
 		private void btnAddDiseaseType_Click(object sender, RoutedEventArgs e)
 		{
 			// Mở cửa sổ nhập liệu
@@ -101,10 +95,6 @@ namespace Disease_Disaster.Views
 			}
 		}
 
-		// ============================================================
-		// TAB 1: QUẢN LÝ Ổ DỊCH
-		// ============================================================
-
 		private void LoadOutbreaks()
 		{
 			dgOutbreak.ItemsSource = _controller.GetAllOutbreaks(txtSearchOD.Text).DefaultView;
@@ -133,7 +123,7 @@ namespace Disease_Disaster.Views
 			}
 		}
 
-		// --- Lưu Ổ Dịch ---
+		// Lưu Ổ Dịch
 		private void btnSaveOutbreak_Click(object sender, RoutedEventArgs e)
 		{
 			// Validate dữ liệu
@@ -184,7 +174,7 @@ namespace Disease_Disaster.Views
 			}
 		}
 
-		// --- Xóa Ổ Dịch ---
+		// Xoá ổ dịch
 		private void btnDeleteOutbreak_Click(object sender, RoutedEventArgs e)
 		{
 			if (sender is Button btn && btn.DataContext is DataRowView row)
@@ -204,12 +194,6 @@ namespace Disease_Disaster.Views
 				}
 			}
 		}
-
-
-		// ============================================================
-		// TAB 2: QUẢN LÝ TIÊM PHÒNG
-		// ============================================================
-
 		private void LoadVaccinations()
 		{
 			dgVaccine.ItemsSource = _controller.GetVaccinations(txtSearchTP.Text).DefaultView;
@@ -220,7 +204,7 @@ namespace Disease_Disaster.Views
 			LoadVaccinations();
 		}
 
-		// --- Lưu Đợt Tiêm Phòng ---
+		// Lưu Đợt Tiêm Phòng 
 		private void btnSaveVaccine_Click(object sender, RoutedEventArgs e)
 		{
 			// Validate
@@ -239,7 +223,6 @@ namespace Disease_Disaster.Views
 					return;
 				}
 
-				// SỬA LỖI: Đã xóa các ký tự lạ và format lại tham số
 				if (_controller.AddVaccination(txtTenDotTP.Text,
 											   (int)cbBenhTP.SelectedValue,
 											   (int)cbODichTP.SelectedValue,
@@ -270,7 +253,7 @@ namespace Disease_Disaster.Views
 			}
 		}
 
-		// --- Xóa Đợt Tiêm ---
+		// Xóa Đợt Tiêm 
 		private void btnDeleteVaccine_Click(object sender, RoutedEventArgs e)
 		{
 			if (sender is Button btn && btn.DataContext is DataRowView row)

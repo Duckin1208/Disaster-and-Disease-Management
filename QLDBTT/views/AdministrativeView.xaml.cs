@@ -17,7 +17,6 @@ namespace Disease_Disaster.Views
 			LoadInitData();
 		}
 
-		// --- KHỞI TẠO DỮ LIỆU BAN ĐẦU ---
 		private void LoadInitData()
 		{
 			try

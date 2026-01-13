@@ -46,24 +46,13 @@ namespace Disease_Disaster.Controllers
 			foreach (DataRow row in dt.Rows)
 			{
 				DiemThienTai item = new DiemThienTai();
-
-				// --- MAP DỮ LIỆU ---
 				item.Id = Convert.ToInt32(row["Id"]);
-
-				// [ĐÃ SỬA] Bỏ qua dòng gán DonViId và LoaiThienTaiId vì Model không có
-				// item.DonViId = ... (Đã xóa)
-				// item.LoaiThienTaiId = ... (Đã xóa)
-
 				item.MucDo = row["MucDo"] != DBNull.Value ? Convert.ToInt32(row["MucDo"]) : 1;
-
-				// Các cột hiển thị (String)
-				// Kiểm tra tên cột trong View của bạn là 'DonVi' hay 'TenDonVi' để map cho đúng
 				if (dt.Columns.Contains("DonVi"))
 					item.TenDonVi = row["DonVi"].ToString();
 				else if (dt.Columns.Contains("TenDonVi"))
 					item.TenDonVi = row["TenDonVi"].ToString();
 
-				// Tương tự với Loại thiên tai
 				if (dt.Columns.Contains("LoaiThienTai"))
 					item.TenLoaiThienTai = row["LoaiThienTai"].ToString();
 				else if (dt.Columns.Contains("TenLoaiThienTai"))
